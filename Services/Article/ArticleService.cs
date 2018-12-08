@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Services.Commmon;
-using Services.Google;
+using Share._3rdParty;
 
 namespace Services.Article
 {
@@ -73,7 +73,7 @@ namespace Services.Article
                 content = _cacheService.GetOrAdd<string>(model.CACHE_KEY, () => content, model.CacheExpiryDateTimeForHtmlTemplate);
                 if (string.IsNullOrEmpty(content)) throw new Exception(nameof(content));
             }
-            content = _fileReadService.FillContent(content, model.ArticleAnonymousDataObjectForHtmlTemplate);
+            content = "";// content.FillContent(model.ArticleAnonymousDataObjectForHtmlTemplate);
             if (string.IsNullOrEmpty(content)) throw new Exception(nameof(content));
             Stream stream = new MemoryStream(Encoding.UTF8.GetBytes(content));
             if (stream == null || stream.Length <= 0) throw new Exception(nameof(stream));

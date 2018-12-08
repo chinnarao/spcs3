@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Share.Models.Ad.Dtos;
 
-namespace Share.AutoMapper
+namespace Share._3rdParty
 {
     public class AdAutoMapperProfile : Profile
     {

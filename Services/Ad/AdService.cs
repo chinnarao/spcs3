@@ -9,13 +9,11 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using Share.Extensions;
 using Services.Commmon;
-using Services.Google;
+using Share._3rdParty;
 using Share.Utilities;
 using Microsoft.Extensions.Configuration;
 using Services.Common;
-using Share.Enums;
 
 namespace Services.Ad
 {
@@ -76,7 +74,7 @@ namespace Services.Ad
                 content = _cacheService.GetOrAdd<string>(model.CACHE_KEY, () => content, model.CacheExpiryDateTimeForHtmlTemplate);
                 if (string.IsNullOrEmpty(content)) throw new Exception(nameof(content));
             }
-            content = _fileReadService.FillContent(content, model.AdAnonymousDataObjectForHtmlTemplate);
+            content = "";// content.ToParseLiquidRender(model.AdAnonymousDataObjectForHtmlTemplate);
             if (string.IsNullOrEmpty(content)) throw new Exception(nameof(content));
             Stream stream = new MemoryStream(Encoding.UTF8.GetBytes(content));
             if (stream == null || stream.Length <= 0) throw new Exception(nameof(stream));

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Services.Google
+namespace Share._3rdParty
 {
     public class GoogleStorageAll
     {

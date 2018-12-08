@@ -4,7 +4,7 @@ using Share.Utilities;
 using System;
 using System.Text.RegularExpressions;
 
-namespace Share.Validators
+namespace Share._3rdParty
 {
     public class AdDtoValidator : AbstractValidator<AdDto>
     {

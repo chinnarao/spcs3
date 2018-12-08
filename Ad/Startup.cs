@@ -13,11 +13,8 @@ using FluentValidation;
 using Share.Models.Ad.Dtos;
 using AspNetCore.Firebase.Authentication.Extensions;
 using Services.Commmon;
-using Services.Google;
-using Share.AutoMapper;
+using Share._3rdParty;
 using Services.Common;
-//using Validation;
-//using Share.Validators;
 //https://github.com/dotnet-architecture/eShopOnWeb
 //https://github.com/aspnet/Docs/blob/master/aspnetcore/test/integration-tests/samples/2.x/IntegrationTestsSample/src/RazorPagesProject/Startup.cs
 //https://github.com/dotnet-presentations/home/tree/master/ASP.NET%20Core/ASP.NET%20Core%20-%20What-s%20New
@@ -53,8 +50,8 @@ namespace Ad
             services.AddScoped<IRepository<Share.Models.Ad.Entities.Ad, AdDbContext>, Repository<Share.Models.Ad.Entities.Ad, AdDbContext>>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddFluentValidation();
-            services.AddTransient<IValidator<AdDto>, Share.Validators.AdDtoValidator>();
-            services.AddTransient<IValidator<AdSearchDto>, Share.Validators.AdSearchDtoValidator>();
+            services.AddTransient<IValidator<AdDto>, AdDtoValidator>();
+            services.AddTransient<IValidator<AdSearchDto>, AdSearchDtoValidator>();
             #region Swagger
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>

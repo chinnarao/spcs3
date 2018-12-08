@@ -2,7 +2,7 @@
 using Share.Models.Ad.Dtos;
 using Share.Utilities;
 
-namespace Share.Validators
+namespace Share._3rdParty
 {
     public class AdSearchDtoValidator : AbstractValidator<AdSearchDto>
     {

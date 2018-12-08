@@ -5,11 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Google.Cloud.Storage.V1" Version="2.2.1" />
-    <PackageReference Include="Scriban" Version="1.2.7" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\DbContexts\DbContexts.csproj" />
     <ProjectReference Include="..\Repository\Repository.csproj" />
     <ProjectReference Include="..\Share\Share.csproj" />

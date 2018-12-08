@@ -16,15 +16,6 @@ namespace Services.Commmon
             _cacheService = cacheService;
         }
 
-        public string FillContent(string content, dynamic anonymousDataObject)
-        {
-            var template = Scriban.Template.Parse(content);
-            if (template.HasErrors)
-                throw new Exception(string.Join<Scriban.Parsing.LogMessage>(',', template.Messages.ToArray()));
-            string result = template.Render(anonymousDataObject);
-            return result;
-        }
-
         public string ReadJsonFile(string path)
         {
             if (string.IsNullOrWhiteSpace(path))
@@ -47,7 +38,6 @@ namespace Services.Commmon
 
     public interface IFileRead
     {
-        string FillContent(string content, dynamic anonymousDataObject);
         string ReadJsonFile(string fileNameWithExtension);
     }
 }

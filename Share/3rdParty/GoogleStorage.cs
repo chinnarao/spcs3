@@ -4,7 +4,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Services.Google
+namespace Share._3rdParty
 {
     public class GoogleStorage : IGoogleStorage
     {

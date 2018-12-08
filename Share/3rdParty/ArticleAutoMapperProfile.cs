@@ -3,7 +3,7 @@ using Share.Models.Article.Entities;
 using Share.Models.Article.Dtos;
 
 // https://github.com/heymdeel/CarHelp/blob/683de14e157527472cde266f597930daf5b4cfe7/src/CarHelp.ApplicationLayer/Models/MappingProfileAppLayer.cs
-namespace Share.AutoMapper
+namespace Share._3rdParty
 {
     public class ArticleAutoMapperProfile : Profile
     {

@@ -1,13 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.EntityFrameworkCore.Storage;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
-namespace Services.Common
+namespace Share.Extensions
 {
     public static class IQueryableExtensions
     {
