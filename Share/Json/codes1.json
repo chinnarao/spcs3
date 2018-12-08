@@ -1,0 +1,310 @@
+[
+  {
+    "countryCallingCode": 220,
+    "countryName": "(The) Gambia"
+  },
+  {
+    "countryCallingCode": 809,
+    "countryName": "Antigua"
+  },
+  {
+    "countryCallingCode": 297,
+    "countryName": "Aruba (autonomous from the Netherlands Antilles as of 1 Jan 1986)"
+  },
+  {
+    "countryCallingCode": 247,
+    "countryName": "Ascension Island"
+  },
+  {
+    "countryCallingCode": 874,
+    "countryName": "Atlantic West--most of this satellite's footprint overlaps 871,"
+  },
+  {
+    "countryCallingCode": 672,
+    "countryName": "Australian External Territories (Norfolk Island, also Christmas Island and Cocos [Keeling] Islands) (each of these has a separate 1-digit area code after \"672\")"
+  },
+  {
+    "countryCallingCode": 809,
+    "countryName": "Barbuda"
+  },
+  {
+    "countryCallingCode": 809,
+    "countryName": "Bermuda or 1+441"
+  },
+  {
+    "countryCallingCode": 1,
+    "countryName": "Bermuda or 809"
+  },
+  {
+    "countryCallingCode": 387,
+    "countryName": "Bosnia"
+  },
+  {
+    "countryCallingCode": 673,
+    "countryName": "Brunei Darussalm"
+  },
+  {
+    "countryCallingCode": 226,
+    "countryName": "Burkina Faso (former Upper Volta)"
+  },
+  {
+    "countryCallingCode": 7,
+    "countryName": "CIS"
+  },
+  {
+    "countryCallingCode": 86,
+    "countryName": "China (People's Republic)"
+  },
+  {
+    "countryCallingCode": 886,
+    "countryName": "China-Taiwan"
+  },
+  {
+    "countryCallingCode": 269,
+    "countryName": "Comoros and Mayotte (but only useable to reach Mayotte)"
+  },
+  {
+    "countryCallingCode": 242,
+    "countryName": "Congo (do not confuse with what is now Zaire)"
+  },
+  {
+    "countryCallingCode": 42,
+    "countryName": "Czechoslovakia"
+  },
+  {
+    "countryCallingCode": 850,
+    "countryName": "Democratic People's Republic of Korea (North Korea)"
+  },
+  {
+    "countryCallingCode": 246,
+    "countryName": "Diego Garcia"
+  },
+  {
+    "countryCallingCode": 298,
+    "countryName": "Faroe (Faeroe) Islands (Denmark) (via MCI goes as +45)"
+  },
+  {
+    "countryCallingCode": 590,
+    "countryName": "French Antilles (St. Barthelemy, Guadeloupe, French side of St. Martin)"
+  },
+  {
+    "countryCallingCode": 389,
+    "countryName": "Fyrom (Macedonia)"
+  },
+  {
+    "countryCallingCode": 241,
+    "countryName": "Gabon (Gabonese Republic)"
+  },
+  {
+    "countryCallingCode": 49,
+    "countryName": "Germany, Federal Republic of (West Germany)"
+  },
+  {
+    "countryCallingCode": 53,
+    "countryName": "Guantanamo Bay"
+  },
+  {
+    "countryCallingCode": 387,
+    "countryName": "Herzegovina"
+  },
+  {
+    "countryCallingCode": 353,
+    "countryName": "Ireland (Irish Republic; Eire)"
+  },
+  {
+    "countryCallingCode": 225,
+    "countryName": "Ivory Coast (also called La Cote d'Ivoire)"
+  },
+  {
+    "countryCallingCode": 855,
+    "countryName": "Khmer Republic (Cambodia/Kampuchea)"
+  },
+  {
+    "countryCallingCode": 686,
+    "countryName": "Kiribati Republic (Gilbert Islands)"
+  },
+  {
+    "countryCallingCode": 82,
+    "countryName": "Korea, Republic of (South Korea)"
+  },
+  {
+    "countryCallingCode": 7,
+    "countryName": "Kyrgystan"
+  },
+  {
+    "countryCallingCode": 871,
+    "countryName": "Marisat--Atlantic Ocean code for ships (Caribbean & Mediterranean too)"
+  },
+  {
+    "countryCallingCode": 873,
+    "countryName": "Marisat--Indian Ocean code for ships"
+  },
+  {
+    "countryCallingCode": 872,
+    "countryName": "Marisat--Pacific Ocean code for ships"
+  },
+  {
+    "countryCallingCode": 596,
+    "countryName": "Martinique (French Antilles)"
+  },
+  {
+    "countryCallingCode": 691,
+    "countryName": "Micronesia (F.S. of Polynesia)"
+  },
+  {
+    "countryCallingCode": 808,
+    "countryName": "Midway Islands"
+  },
+  {
+    "countryCallingCode": 95,
+    "countryName": "Myanmar (previously known as Burma)"
+  },
+  {
+    "countryCallingCode": 264,
+    "countryName": "Namibia (former South-West Africa)"
+  },
+  {
+    "countryCallingCode": 599,
+    "countryName": "Netherlands Antilles"
+  },
+  {
+    "countryCallingCode": 351,
+    "countryName": "Portugal (includes Azores)"
+  },
+  {
+    "countryCallingCode": 262,
+    "countryName": "Reunion (France)"
+  },
+  {
+    "countryCallingCode": 250,
+    "countryName": "Rwanda (Rwandese Republic)"
+  },
+  {
+    "countryCallingCode": 295,
+    "countryName": "San Marino (not in service yet; has been reached via Italy as 39541)"
+  },
+  {
+    "countryCallingCode": 239,
+    "countryName": "Sao Tome and Principe"
+  },
+  {
+    "countryCallingCode": 381,
+    "countryName": "Serbia, Republic of"
+  },
+  {
+    "countryCallingCode": 34,
+    "countryName": "Spain (including Balearic Islands)"
+  },
+  {
+    "countryCallingCode": 290,
+    "countryName": "St. Helena"
+  },
+  {
+    "countryCallingCode": 508,
+    "countryName": "St. Pierre &(et) Miquelon (France)"
+  },
+  {
+    "countryCallingCode": 963,
+    "countryName": "Syrian Arab Republic (Syria)"
+  },
+  {
+    "countryCallingCode": 689,
+    "countryName": "Tahiti (French Polynesia)"
+  },
+  {
+    "countryCallingCode": 255,
+    "countryName": "Tanzania (includes Zanzibar)"
+  },
+  {
+    "countryCallingCode": 228,
+    "countryName": "Togo (Togolese Republic)"
+  },
+  {
+    "countryCallingCode": 296,
+    "countryName": "Trinidad and Tobago (not in service yet; has been reached via +1 809)"
+  },
+  {
+    "countryCallingCode": 688,
+    "countryName": "Tuvalu (Ellice Islands)"
+  },
+  {
+    "countryCallingCode": 598,
+    "countryName": "Uruguay (East Republic)"
+  },
+  {
+    "countryCallingCode": 678,
+    "countryName": "Vanuatu (New Hebrides)"
+  },
+  {
+    "countryCallingCode": 84,
+    "countryName": "Viet Nam"
+  },
+  {
+    "countryCallingCode": 685,
+    "countryName": "Western Samoa"
+  },
+  {
+    "countryCallingCode": 969,
+    "countryName": "Yemen (People's Democratic Republic of) (Aden)"
+  },
+  {
+    "countryCallingCode": 967,
+    "countryName": "Yemen Arab Republic (North Yemen)"
+  },
+  {
+    "countryCallingCode": 38,
+    "countryName": "Yugoslavia"
+  },
+  {
+    "countryCallingCode": 243,
+    "countryName": "Zaire (former Republic of the Congo)"
+  },
+  {
+    "countryCallingCode": 259,
+    "countryName": "Zanzibar (this code is assigned in E.163, but use Tanzania, 25554)"
+  },
+  {
+    "countryCallingCode": 28,
+    "countryName": "spare"
+  },
+  {
+    "countryCallingCode": 291,
+    "countryName": "spare"
+  },
+  {
+    "countryCallingCode": 292,
+    "countryName": "spare"
+  },
+  {
+    "countryCallingCode": 293,
+    "countryName": "spare"
+  },
+  {
+    "countryCallingCode": 294,
+    "countryName": "spare"
+  },
+  {
+    "countryCallingCode": 214,
+    "countryName": "unused Algeria"
+  },
+  {
+    "countryCallingCode": 215,
+    "countryName": "unused Algeria"
+  },
+  {
+    "countryCallingCode": 219,
+    "countryName": "unused Libya"
+  },
+  {
+    "countryCallingCode": 210,
+    "countryName": "unused Morocco"
+  },
+  {
+    "countryCallingCode": 211,
+    "countryName": "unused Morocco"
+  },
+  {
+    "countryCallingCode": 217,
+    "countryName": "unused Tunisia"
+  }
+]

@@ -1,0 +1,3 @@
+﻿http://global.stainlessdot.com/
+
+https://github.com/ws-dotnet-core/BWS.Utils.AspNetCore

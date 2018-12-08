@@ -1,0 +1,15 @@
+﻿Services References:
+===========================================
+Nuget:
+AutoMapper.Extensions.Microsoft.DependencyInjection 2.1.0
+
+sdk:
+Microsoft.NETCore.App 2.10
+
+Projects:
+DbContexts
+File
+Google
+Models
+Repository
+Share

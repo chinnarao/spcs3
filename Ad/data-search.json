@@ -1,0 +1,19 @@
+{
+  "searchText": "string",
+  "conditionId": 0,
+  "sortOptionsId": 0,
+  "mileOptionsId": 0,
+  "categoryId": 0,
+  "countryCode": "IN",
+  "currencyCode": "USD",
+  "cityName": "string",
+  "zipCode": "string",
+  "minPrice": "",
+  "maxPrice": "",
+  "mapAddress": "string",
+  "mapLongitude": null,
+  "mapLattitude": null,
+  "pageNumber": 0,
+  "defaultPageSize": 0,
+  "stateWithComma": "string"
+}

@@ -1,0 +1,152 @@
+﻿best one: https://www.sqlshack.com/hands-full-text-search-sql-server/
+https://docs.microsoft.com/en-us/sql/t-sql/statements/create-fulltext-index-transact-sql?view=sql-server-2017
+your have implement : http://www.pa-roy.com/raw-sql-query-efcore/
+=================================================================================================================
+http://www.codenutz.com/tsql-scripting-a-full-text-catalog-index/
+https://azure.microsoft.com/en-us/blog/full-text-search-is-now-available-for-preview-in-azure-sql-database/
+http://www.sqlcoffee.com/Azure_0023.htm
+https://www.talkenglish.com/vocabulary/top-50-prepositions.aspx
+https://mariadb.com/kb/en/library/full-text-index-stopwords/
+https://www.apexsql.com/sql-tools-search.aspx
+http://sqlcontent.com/index.php/2018/04/04/installing-full-text-search-with-sql-2017/
+https://weblog.west-wind.com/posts/2014/Dec/21/Gotcha-Entity-Framework-gets-slow-in-long-Iteration-Loops
+
+
+====
+//https://stackoverflow.com/questions/51028387/full-text-search-in-ef-core-2-1
+            // https://sqlblogcasts.com/blogs/simons/archive/2008/12/18/LINQ-to-SQL---Enabling-Fulltext-searching.aspx
+            //https://thinkrethink.net/2017/06/28/entity-framework-and-full-text-search/
+            //https://www.mikesdotnetting.com/article/298/implementing-sql-server-full-text-search-in-an-asp-net-mvc-web-application-with-entity-framework
+            //https://archive.codeplex.com/?p=effts
+            //https://www.youtube.com/watch?v=0XQT6x0Ge08
+            //https://github.com/fissoft/Fissoft.EntityFramework.Fts
+            //http://jarrettmeyer.com/2017/06/11/sql-server-full-text-search-part-1
+            //https://www.red-gate.com/simple-talk/sql/learn-sql-server/understanding-full-text-indexing-in-sql-server/
+            //https://entityframeworkcore.com/knowledge-base/51047514/how-to-use-freetext-in-ef-core-2-1
+            //https://github.com/ry8806/Blog-EFCore-CustomMigration/blob/master/EFCustomMigrations/Db/CustomMigrations/CustomerLocationMigration.cs
+
+
+			https://github.com/uber-asido/backend/blob/e32bf1ddabe500002d835228993707503449e06c/src/Uber.Module.Search.EFCore/Store/SearchItemStore.cs
+			https://github.com/aspnet/EntityFrameworkCore/blob/0906670e469a0e1054e8b8bc6fddd3c028a5cb5a/test/EFCore.SqlServer.FunctionalTests/Query/DbFunctionsSqlServerTest.cs
+			https://docs.microsoft.com/en-us/sql/t-sql/spatial-geography/ogc-methods-on-geography-instances?view=sql-server-2017
+
+			4326:   http://spatialreference.org/ref/epsg/4326/
+			https://www.todaysoftmag.com/article/1365/spatial-data-in-the-sql-server
+			https://www.codeproject.com/Articles/1007147/Converting-Latitude-and-Longitude-to-British-Natio
+
+databases bak files: https://github.com/Microsoft/sql-server-samples/releases/tag/wide-world-importers-v1.0
+--------------------------
+SELECT 
+	CASE FULLTEXTSERVICEPROPERTY('IsFullTextInstalled')
+		WHEN 1 THEN 'Full-Text installed.' 
+		ELSE 'Full-Text is NOT installed.' 
+	END;
+--------------------------------------------------------
+SELECT is_fulltext_enabled FROM sys.databases WHERE database_id = DB_ID()
+---------------------------------------------------------------------------
+USE Ad;
+exec sp_fulltext_database 'enable';
+---------------------------------------------------------------------------
+
+select * FROM sys.fulltext_catalogs
+--------------------------------------------------------------------------
+select * from sys.fulltext_stoplists
+select * from sys.fulltext_stopwords
+SELECT * FROM sys.fulltext_system_stopwords
+SELECT * FROM sys.fulltext_system_stopwords WHERE language_id=1033 order by stopword
+SELECT * FROM sys.fulltext_system_stopwords WHERE language_id=0 order by stopword
+
+select [GeogCol1].STSrid from [dbo].[CustomerLocation]
+future :
+====================================================
+1. EXEC sp_fulltext_service 'verify_signature';
+2. SELECT fulltextcatalogproperty('FullTextCatalog', 'AccentSensitivity');
+
+=======================================================
+
+use Ad;
+IF EXISTS (select * from sys.fulltext_indexes fti WHERE fti.object_id = OBJECT_ID(N'[dbo].[Ad]')) 
+begin
+	DROP FULLTEXT INDEX ON [dbo].[Ad]; 
+	IF EXISTS (select * FROM sys.fulltext_catalogs ftc WHERE ftc.name = N'FullTextCatalog') 
+	begin
+		DROP FULLTEXT CATALOG [FullTextCatalog]; 
+		CREATE FULLTEXT CATALOG [FullTextCatalog] WITH ACCENT_SENSITIVITY = OFF AS DEFAULT;
+		print '1111'
+	end
+	else
+	begin
+		CREATE FULLTEXT CATALOG [FullTextCatalog] WITH ACCENT_SENSITIVITY = OFF AS DEFAULT;
+		print '2222'
+	end
+    CREATE FULLTEXT INDEX ON  [dbo].[Ad]([AdTitle]  LANGUAGE 0) KEY INDEX PK_Ad;
+	print '1111'
+end
+else
+begin
+	CREATE FULLTEXT CATALOG [FullTextCatalog] WITH ACCENT_SENSITIVITY = OFF AS DEFAULT;
+	CREATE FULLTEXT INDEX ON  [dbo].[Ad]([AdTitle]  LANGUAGE 0) KEY INDEX PK_Ad;
+	print '2222'
+end
+-----------------------------------------------------------------------------------------------------
+======================================================================================================
+use Article;
+IF EXISTS (select * from sys.fulltext_indexes fti WHERE fti.object_id = OBJECT_ID(N'[dbo].[Article]')) 
+begin
+	DROP FULLTEXT INDEX ON [dbo].[Article]; 
+	IF EXISTS (select * FROM sys.fulltext_catalogs ftc WHERE ftc.name = N'FullTextCatalog') 
+	begin
+		DROP FULLTEXT CATALOG [FullTextCatalog]; 
+		CREATE FULLTEXT CATALOG [FullTextCatalog] WITH ACCENT_SENSITIVITY = OFF AS DEFAULT;
+		print '1111'
+	end
+	else
+	begin
+		CREATE FULLTEXT CATALOG [FullTextCatalog] WITH ACCENT_SENSITIVITY = OFF AS DEFAULT;
+		print '2222'
+	end
+    CREATE FULLTEXT INDEX ON  [dbo].[Article]([Title]  LANGUAGE 0) KEY INDEX PK_Article;
+	print '1111'
+end
+else
+begin
+	CREATE FULLTEXT CATALOG [FullTextCatalog] WITH ACCENT_SENSITIVITY = OFF AS DEFAULT;
+	CREATE FULLTEXT INDEX ON  [dbo].[Article]([Title]  LANGUAGE 0) KEY INDEX PK_Article;
+	print '2222'
+end
+
+=========================================================================================================
+use Article;
+select * FROM sys.fulltext_catalogs
+select * from sys.fulltext_indexes
+DROP FULLTEXT INDEX ON [dbo].[Article]; 
+DROP FULLTEXT CATALOG [FullTextCatalog];
+
+use Ad;
+select * FROM sys.fulltext_catalogs
+select * from sys.fulltext_indexes
+DROP FULLTEXT INDEX ON [dbo].[Ad]; 
+DROP FULLTEXT CATALOG [FullTextCatalog]; 
+
+=====
+https://dba.stackexchange.com/questions/187986/sql-geographypoint-null-parameter-error-when-parameter-is-not-null
+https://www.sqlskills.com/blogs/bobb/sql-server-spatial-empty-vs-null/
+https://weblog.west-wind.com/posts/2012/Jun/21/Basic-Spatial-Data-with-SQL-Server-and-Entity-Framework-50
+
+
+
+var query =
+                  from m in context.Messpunkte
+                  where m.Position.Distance(mittelpunkt) < 4
+                  orderby m.Position.Distance(mittelpunkt) descending
+                  select m;
+
+
+				  Messpunkt messpunkt = new Messpunkt()
+                    {
+                        Zeitpunkt = DateTime.Now,
+                        Position = new Point(rnd.Next(1, 10), rnd.Next(1, 10)),
+                        Temperatur = rnd.NextDouble() * 100
+                    };
+
+					https://github.com/CAUCA-9-1-1/survip-webapi/blob/a6b3091d58b25691d2705b12439ad04122d63c23/Survi.Prevention.WebApi/PointCoordinateJsonConverter.cs

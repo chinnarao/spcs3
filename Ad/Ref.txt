@@ -1,0 +1,12 @@
+﻿Ad project References:
+===========================================
+Nuget:
+Microsoft.AspNetCore.App 2.1.0
+NetEscapades.Extensions.Logging.RollingFile  1.0.0
+Swashbuckle.AspNetCore 2.5.0
+
+sdk:
+Microsoft.NETCore.App 2.10
+
+Projects:
+Services

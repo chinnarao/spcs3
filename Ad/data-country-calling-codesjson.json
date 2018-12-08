@@ -1,0 +1,938 @@
+[
+  {
+    "countryCallingCode": 220,
+    "countryName": "(The) Gambia"
+  },
+  {
+    "countryCallingCode": 93,
+    "countryName": "Afghanistan"
+  },
+  {
+    "countryCallingCode": 355,
+    "countryName": "Albania"
+  },
+  {
+    "countryCallingCode": 213,
+    "countryName": "Algeria"
+  },
+  {
+    "countryCallingCode": 684,
+    "countryName": "American Samoa"
+  },
+  {
+    "countryCallingCode": 244,
+    "countryName": "Angola"
+  },
+  {
+    "countryCallingCode": 809,
+    "countryName": "Anguilla"
+  },
+  {
+    "countryCallingCode": 672,
+    "countryName": "Antarctica"
+  },
+  {
+    "countryCallingCode": 809,
+    "countryName": "Antigua"
+  },
+  {
+    "countryCallingCode": 54,
+    "countryName": "Argentina"
+  },
+  {
+    "countryCallingCode": 374,
+    "countryName": "Armenia"
+  },
+  {
+    "countryCallingCode": 297,
+    "countryName": "Aruba (autonomous from the Netherlands Antilles as of 1 Jan 1986)"
+  },
+  {
+    "countryCallingCode": 247,
+    "countryName": "Ascension Island"
+  },
+  {
+    "countryCallingCode": 874,
+    "countryName": "Atlantic West--most of this satellite's footprint overlaps 871,"
+  },
+  {
+    "countryCallingCode": 61,
+    "countryName": "Australia"
+  },
+  {
+    "countryCallingCode": 672,
+    "countryName": "Australian External Territories (Norfolk Island, also Christmas Island and Cocos [Keeling] Islands) (each of these has a separate 1-digit area code after \"672\")"
+  },
+  {
+    "countryCallingCode": 43,
+    "countryName": "Austria"
+  },
+  {
+    "countryCallingCode": 994,
+    "countryName": "Azerbaijan"
+  },
+  {
+    "countryCallingCode": 809,
+    "countryName": "Bahamas"
+  },
+  {
+    "countryCallingCode": 973,
+    "countryName": "Bahrain"
+  },
+  {
+    "countryCallingCode": 880,
+    "countryName": "Bangladesh"
+  },
+  {
+    "countryCallingCode": 809,
+    "countryName": "Barbados"
+  },
+  {
+    "countryCallingCode": 809,
+    "countryName": "Barbuda"
+  },
+  {
+    "countryCallingCode": 375,
+    "countryName": "Belarus"
+  },
+  {
+    "countryCallingCode": 32,
+    "countryName": "Belgium"
+  },
+  {
+    "countryCallingCode": 501,
+    "countryName": "Belize"
+  },
+  {
+    "countryCallingCode": 229,
+    "countryName": "Benin"
+  },
+  {
+    "countryCallingCode": 809,
+    "countryName": "Bermuda or 1+441"
+  },
+  {
+    "countryCallingCode": 1,
+    "countryName": "Bermuda or 809"
+  },
+  {
+    "countryCallingCode": 975,
+    "countryName": "Bhutan"
+  },
+  {
+    "countryCallingCode": 591,
+    "countryName": "Bolivia"
+  },
+  {
+    "countryCallingCode": 387,
+    "countryName": "Bosnia"
+  },
+  {
+    "countryCallingCode": 267,
+    "countryName": "Botswana"
+  },
+  {
+    "countryCallingCode": 55,
+    "countryName": "Brazil"
+  },
+  {
+    "countryCallingCode": 809,
+    "countryName": "British Virgin Islands"
+  },
+  {
+    "countryCallingCode": 673,
+    "countryName": "Brunei Darussalm"
+  },
+  {
+    "countryCallingCode": 359,
+    "countryName": "Bulgaria"
+  },
+  {
+    "countryCallingCode": 226,
+    "countryName": "Burkina Faso (former Upper Volta)"
+  },
+  {
+    "countryCallingCode": 257,
+    "countryName": "Burundi"
+  },
+  {
+    "countryCallingCode": 7,
+    "countryName": "CIS"
+  },
+  {
+    "countryCallingCode": 237,
+    "countryName": "Cameroon"
+  },
+  {
+    "countryCallingCode": 1,
+    "countryName": "Canada"
+  },
+  {
+    "countryCallingCode": 238,
+    "countryName": "Cape Verde"
+  },
+  {
+    "countryCallingCode": 236,
+    "countryName": "Central African Republic"
+  },
+  {
+    "countryCallingCode": 235,
+    "countryName": "Chad"
+  },
+  {
+    "countryCallingCode": 56,
+    "countryName": "Chile"
+  },
+  {
+    "countryCallingCode": 86,
+    "countryName": "China (People's Republic)"
+  },
+  {
+    "countryCallingCode": 886,
+    "countryName": "China-Taiwan"
+  },
+  {
+    "countryCallingCode": 57,
+    "countryName": "Colombia"
+  },
+  {
+    "countryCallingCode": 269,
+    "countryName": "Comoros and Mayotte (but only useable to reach Mayotte)"
+  },
+  {
+    "countryCallingCode": 242,
+    "countryName": "Congo (do not confuse with what is now Zaire)"
+  },
+  {
+    "countryCallingCode": 682,
+    "countryName": "Cook Islands"
+  },
+  {
+    "countryCallingCode": 506,
+    "countryName": "Costa Rica"
+  },
+  {
+    "countryCallingCode": 385,
+    "countryName": "Croatia"
+  },
+  {
+    "countryCallingCode": 53,
+    "countryName": "Cuba"
+  },
+  {
+    "countryCallingCode": 357,
+    "countryName": "Cyprus"
+  },
+  {
+    "countryCallingCode": 42,
+    "countryName": "Czechoslovakia"
+  },
+  {
+    "countryCallingCode": 850,
+    "countryName": "Democratic People's Republic of Korea (North Korea)"
+  },
+  {
+    "countryCallingCode": 45,
+    "countryName": "Denmark"
+  },
+  {
+    "countryCallingCode": 246,
+    "countryName": "Diego Garcia"
+  },
+  {
+    "countryCallingCode": 253,
+    "countryName": "Djibouti"
+  },
+  {
+    "countryCallingCode": 593,
+    "countryName": "Ecuador"
+  },
+  {
+    "countryCallingCode": 20,
+    "countryName": "Egypt"
+  },
+  {
+    "countryCallingCode": 503,
+    "countryName": "El Salvador"
+  },
+  {
+    "countryCallingCode": 240,
+    "countryName": "Equatorial Guinea"
+  },
+  {
+    "countryCallingCode": 251,
+    "countryName": "Ethiopia"
+  },
+  {
+    "countryCallingCode": 500,
+    "countryName": "Falkland Islands"
+  },
+  {
+    "countryCallingCode": 298,
+    "countryName": "Faroe (Faeroe) Islands (Denmark) (via MCI goes as +45)"
+  },
+  {
+    "countryCallingCode": 679,
+    "countryName": "Fiji"
+  },
+  {
+    "countryCallingCode": 358,
+    "countryName": "Finland"
+  },
+  {
+    "countryCallingCode": 33,
+    "countryName": "France"
+  },
+  {
+    "countryCallingCode": 590,
+    "countryName": "French Antilles (St. Barthelemy, Guadeloupe, French side of St. Martin)"
+  },
+  {
+    "countryCallingCode": 594,
+    "countryName": "French Guiana"
+  },
+  {
+    "countryCallingCode": 389,
+    "countryName": "Fyrom (Macedonia)"
+  },
+  {
+    "countryCallingCode": 241,
+    "countryName": "Gabon (Gabonese Republic)"
+  },
+  {
+    "countryCallingCode": 995,
+    "countryName": "Georgia"
+  },
+  {
+    "countryCallingCode": 49,
+    "countryName": "Germany, Federal Republic of (West Germany)"
+  },
+  {
+    "countryCallingCode": 233,
+    "countryName": "Ghana"
+  },
+  {
+    "countryCallingCode": 350,
+    "countryName": "Gibraltar"
+  },
+  {
+    "countryCallingCode": 30,
+    "countryName": "Greece"
+  },
+  {
+    "countryCallingCode": 299,
+    "countryName": "Greenland"
+  },
+  {
+    "countryCallingCode": 671,
+    "countryName": "Guam"
+  },
+  {
+    "countryCallingCode": 53,
+    "countryName": "Guantanamo Bay"
+  },
+  {
+    "countryCallingCode": 502,
+    "countryName": "Guatemala"
+  },
+  {
+    "countryCallingCode": 224,
+    "countryName": "Guinea"
+  },
+  {
+    "countryCallingCode": 245,
+    "countryName": "Guinea-Bissau"
+  },
+  {
+    "countryCallingCode": 592,
+    "countryName": "Guyana"
+  },
+  {
+    "countryCallingCode": 509,
+    "countryName": "Haiti"
+  },
+  {
+    "countryCallingCode": 387,
+    "countryName": "Herzegovina"
+  },
+  {
+    "countryCallingCode": 504,
+    "countryName": "Honduras"
+  },
+  {
+    "countryCallingCode": 852,
+    "countryName": "Hong Kong"
+  },
+  {
+    "countryCallingCode": 36,
+    "countryName": "Hungary"
+  },
+  {
+    "countryCallingCode": 354,
+    "countryName": "Iceland"
+  },
+  {
+    "countryCallingCode": 91,
+    "countryName": "India"
+  },
+  {
+    "countryCallingCode": 62,
+    "countryName": "Indonesia"
+  },
+  {
+    "countryCallingCode": 98,
+    "countryName": "Iran"
+  },
+  {
+    "countryCallingCode": 964,
+    "countryName": "Iraq"
+  },
+  {
+    "countryCallingCode": 353,
+    "countryName": "Ireland (Irish Republic; Eire)"
+  },
+  {
+    "countryCallingCode": 972,
+    "countryName": "Israel"
+  },
+  {
+    "countryCallingCode": 39,
+    "countryName": "Italy"
+  },
+  {
+    "countryCallingCode": 225,
+    "countryName": "Ivory Coast (also called La Cote d'Ivoire)"
+  },
+  {
+    "countryCallingCode": 81,
+    "countryName": "Japan"
+  },
+  {
+    "countryCallingCode": 962,
+    "countryName": "Jordan"
+  },
+  {
+    "countryCallingCode": 7,
+    "countryName": "Kazakhstan"
+  },
+  {
+    "countryCallingCode": 254,
+    "countryName": "Kenya"
+  },
+  {
+    "countryCallingCode": 855,
+    "countryName": "Khmer Republic (Cambodia/Kampuchea)"
+  },
+  {
+    "countryCallingCode": 686,
+    "countryName": "Kiribati Republic (Gilbert Islands)"
+  },
+  {
+    "countryCallingCode": 82,
+    "countryName": "Korea, Republic of (South Korea)"
+  },
+  {
+    "countryCallingCode": 965,
+    "countryName": "Kuwait"
+  },
+  {
+    "countryCallingCode": 7,
+    "countryName": "Kyrgystan"
+  },
+  {
+    "countryCallingCode": 856,
+    "countryName": "Laos"
+  },
+  {
+    "countryCallingCode": 371,
+    "countryName": "Latvia"
+  },
+  {
+    "countryCallingCode": 961,
+    "countryName": "Lebanon"
+  },
+  {
+    "countryCallingCode": 266,
+    "countryName": "Lesotho"
+  },
+  {
+    "countryCallingCode": 231,
+    "countryName": "Liberia"
+  },
+  {
+    "countryCallingCode": 218,
+    "countryName": "Libya"
+  },
+  {
+    "countryCallingCode": 41,
+    "countryName": "Liechtenstein"
+  },
+  {
+    "countryCallingCode": 370,
+    "countryName": "Lithuania"
+  },
+  {
+    "countryCallingCode": 352,
+    "countryName": "Luxembourg"
+  },
+  {
+    "countryCallingCode": 853,
+    "countryName": "Macao"
+  },
+  {
+    "countryCallingCode": 261,
+    "countryName": "Madagascar"
+  },
+  {
+    "countryCallingCode": 265,
+    "countryName": "Malawi"
+  },
+  {
+    "countryCallingCode": 60,
+    "countryName": "Malaysia"
+  },
+  {
+    "countryCallingCode": 960,
+    "countryName": "Maldives"
+  },
+  {
+    "countryCallingCode": 223,
+    "countryName": "Mali"
+  },
+  {
+    "countryCallingCode": 356,
+    "countryName": "Malta"
+  },
+  {
+    "countryCallingCode": 871,
+    "countryName": "Marisat--Atlantic Ocean code for ships (Caribbean & Mediterranean too)"
+  },
+  {
+    "countryCallingCode": 873,
+    "countryName": "Marisat--Indian Ocean code for ships"
+  },
+  {
+    "countryCallingCode": 872,
+    "countryName": "Marisat--Pacific Ocean code for ships"
+  },
+  {
+    "countryCallingCode": 692,
+    "countryName": "Marshall Islands"
+  },
+  {
+    "countryCallingCode": 596,
+    "countryName": "Martinique (French Antilles)"
+  },
+  {
+    "countryCallingCode": 222,
+    "countryName": "Mauritania"
+  },
+  {
+    "countryCallingCode": 230,
+    "countryName": "Mauritius"
+  },
+  {
+    "countryCallingCode": 52,
+    "countryName": "Mexico"
+  },
+  {
+    "countryCallingCode": 691,
+    "countryName": "Micronesia (F.S. of Polynesia)"
+  },
+  {
+    "countryCallingCode": 808,
+    "countryName": "Midway Islands"
+  },
+  {
+    "countryCallingCode": 373,
+    "countryName": "Moldova"
+  },
+  {
+    "countryCallingCode": 377,
+    "countryName": "Monaco"
+  },
+  {
+    "countryCallingCode": 976,
+    "countryName": "Mongolia"
+  },
+  {
+    "countryCallingCode": 212,
+    "countryName": "Morocco"
+  },
+  {
+    "countryCallingCode": 258,
+    "countryName": "Mozambique"
+  },
+  {
+    "countryCallingCode": 95,
+    "countryName": "Myanmar (previously known as Burma)"
+  },
+  {
+    "countryCallingCode": 264,
+    "countryName": "Namibia (former South-West Africa)"
+  },
+  {
+    "countryCallingCode": 674,
+    "countryName": "Nauru"
+  },
+  {
+    "countryCallingCode": 977,
+    "countryName": "Nepal"
+  },
+  {
+    "countryCallingCode": 31,
+    "countryName": "Netherlands"
+  },
+  {
+    "countryCallingCode": 599,
+    "countryName": "Netherlands Antilles"
+  },
+  {
+    "countryCallingCode": 687,
+    "countryName": "New Caledonia"
+  },
+  {
+    "countryCallingCode": 64,
+    "countryName": "New Zealand"
+  },
+  {
+    "countryCallingCode": 505,
+    "countryName": "Nicaragua"
+  },
+  {
+    "countryCallingCode": 227,
+    "countryName": "Niger"
+  },
+  {
+    "countryCallingCode": 234,
+    "countryName": "Nigeria"
+  },
+  {
+    "countryCallingCode": 683,
+    "countryName": "Niue"
+  },
+  {
+    "countryCallingCode": 670,
+    "countryName": "North Mariana Islands (Saipan)"
+  },
+  {
+    "countryCallingCode": 47,
+    "countryName": "Norway"
+  },
+  {
+    "countryCallingCode": 968,
+    "countryName": "Oman"
+  },
+  {
+    "countryCallingCode": 92,
+    "countryName": "Pakistan"
+  },
+  {
+    "countryCallingCode": 680,
+    "countryName": "Palau"
+  },
+  {
+    "countryCallingCode": 507,
+    "countryName": "Panama"
+  },
+  {
+    "countryCallingCode": 675,
+    "countryName": "Papua New Guinea"
+  },
+  {
+    "countryCallingCode": 595,
+    "countryName": "Paraguay"
+  },
+  {
+    "countryCallingCode": 51,
+    "countryName": "Peru"
+  },
+  {
+    "countryCallingCode": 63,
+    "countryName": "Philippines"
+  },
+  {
+    "countryCallingCode": 48,
+    "countryName": "Poland"
+  },
+  {
+    "countryCallingCode": 351,
+    "countryName": "Portugal (includes Azores)"
+  },
+  {
+    "countryCallingCode": 974,
+    "countryName": "Qatar"
+  },
+  {
+    "countryCallingCode": 262,
+    "countryName": "Reunion (France)"
+  },
+  {
+    "countryCallingCode": 40,
+    "countryName": "Romania"
+  },
+  {
+    "countryCallingCode": 7,
+    "countryName": "Russia"
+  },
+  {
+    "countryCallingCode": 250,
+    "countryName": "Rwanda (Rwandese Republic)"
+  },
+  {
+    "countryCallingCode": 295,
+    "countryName": "San Marino (not in service yet; has been reached via Italy as 39541)"
+  },
+  {
+    "countryCallingCode": 239,
+    "countryName": "Sao Tome and Principe"
+  },
+  {
+    "countryCallingCode": 966,
+    "countryName": "Saudi Arabia"
+  },
+  {
+    "countryCallingCode": 221,
+    "countryName": "Senegal"
+  },
+  {
+    "countryCallingCode": 381,
+    "countryName": "Serbia, Republic of"
+  },
+  {
+    "countryCallingCode": 248,
+    "countryName": "Seychelles"
+  },
+  {
+    "countryCallingCode": 232,
+    "countryName": "Sierra Leone"
+  },
+  {
+    "countryCallingCode": 65,
+    "countryName": "Singapore"
+  },
+  {
+    "countryCallingCode": 677,
+    "countryName": "Solomon Islands"
+  },
+  {
+    "countryCallingCode": 252,
+    "countryName": "Somalia"
+  },
+  {
+    "countryCallingCode": 27,
+    "countryName": "South Africa"
+  },
+  {
+    "countryCallingCode": 34,
+    "countryName": "Spain (including Balearic Islands)"
+  },
+  {
+    "countryCallingCode": 94,
+    "countryName": "Sri Lanka"
+  },
+  {
+    "countryCallingCode": 290,
+    "countryName": "St. Helena"
+  },
+  {
+    "countryCallingCode": 508,
+    "countryName": "St. Pierre &(et) Miquelon (France)"
+  },
+  {
+    "countryCallingCode": 249,
+    "countryName": "Sudan"
+  },
+  {
+    "countryCallingCode": 597,
+    "countryName": "Suriname"
+  },
+  {
+    "countryCallingCode": 268,
+    "countryName": "Swaziland"
+  },
+  {
+    "countryCallingCode": 46,
+    "countryName": "Sweden"
+  },
+  {
+    "countryCallingCode": 41,
+    "countryName": "Switzerland"
+  },
+  {
+    "countryCallingCode": 963,
+    "countryName": "Syrian Arab Republic (Syria)"
+  },
+  {
+    "countryCallingCode": 689,
+    "countryName": "Tahiti (French Polynesia)"
+  },
+  {
+    "countryCallingCode": 7,
+    "countryName": "Tajikistan"
+  },
+  {
+    "countryCallingCode": 255,
+    "countryName": "Tanzania (includes Zanzibar)"
+  },
+  {
+    "countryCallingCode": 66,
+    "countryName": "Thailand"
+  },
+  {
+    "countryCallingCode": 228,
+    "countryName": "Togo (Togolese Republic)"
+  },
+  {
+    "countryCallingCode": 690,
+    "countryName": "Tokelau"
+  },
+  {
+    "countryCallingCode": 676,
+    "countryName": "Tonga"
+  },
+  {
+    "countryCallingCode": 296,
+    "countryName": "Trinidad and Tobago (not in service yet; has been reached via +1 809)"
+  },
+  {
+    "countryCallingCode": 216,
+    "countryName": "Tunisia"
+  },
+  {
+    "countryCallingCode": 90,
+    "countryName": "Turkey"
+  },
+  {
+    "countryCallingCode": 993,
+    "countryName": "Turkmenistan"
+  },
+  {
+    "countryCallingCode": 688,
+    "countryName": "Tuvalu (Ellice Islands)"
+  },
+  {
+    "countryCallingCode": 1,
+    "countryName": "USA"
+  },
+  {
+    "countryCallingCode": 256,
+    "countryName": "Uganda"
+  },
+  {
+    "countryCallingCode": 380,
+    "countryName": "Ukraine"
+  },
+  {
+    "countryCallingCode": 971,
+    "countryName": "United Arab Emirates"
+  },
+  {
+    "countryCallingCode": 44,
+    "countryName": "United Kingdom"
+  },
+  {
+    "countryCallingCode": 598,
+    "countryName": "Uruguay (East Republic)"
+  },
+  {
+    "countryCallingCode": 7,
+    "countryName": "Uzbekistan"
+  },
+  {
+    "countryCallingCode": 678,
+    "countryName": "Vanuatu (New Hebrides)"
+  },
+  {
+    "countryCallingCode": 39,
+    "countryName": "Vatican City"
+  },
+  {
+    "countryCallingCode": 58,
+    "countryName": "Venezuela"
+  },
+  {
+    "countryCallingCode": 84,
+    "countryName": "Viet Nam"
+  },
+  {
+    "countryCallingCode": 681,
+    "countryName": "Wallis and Futuna"
+  },
+  {
+    "countryCallingCode": 685,
+    "countryName": "Western Samoa"
+  },
+  {
+    "countryCallingCode": 969,
+    "countryName": "Yemen (People's Democratic Republic of) (Aden)"
+  },
+  {
+    "countryCallingCode": 967,
+    "countryName": "Yemen Arab Republic (North Yemen)"
+  },
+  {
+    "countryCallingCode": 38,
+    "countryName": "Yugoslavia"
+  },
+  {
+    "countryCallingCode": 243,
+    "countryName": "Zaire (former Republic of the Congo)"
+  },
+  {
+    "countryCallingCode": 260,
+    "countryName": "Zambia"
+  },
+  {
+    "countryCallingCode": 259,
+    "countryName": "Zanzibar (this code is assigned in E.163, but use Tanzania, 25554)"
+  },
+  {
+    "countryCallingCode": 263,
+    "countryName": "Zimbabwe"
+  },
+  {
+    "countryCallingCode": 28,
+    "countryName": "spare"
+  },
+  {
+    "countryCallingCode": 291,
+    "countryName": "spare"
+  },
+  {
+    "countryCallingCode": 292,
+    "countryName": "spare"
+  },
+  {
+    "countryCallingCode": 293,
+    "countryName": "spare"
+  },
+  {
+    "countryCallingCode": 294,
+    "countryName": "spare"
+  },
+  {
+    "countryCallingCode": 214,
+    "countryName": "unused Algeria"
+  },
+  {
+    "countryCallingCode": 215,
+    "countryName": "unused Algeria"
+  },
+  {
+    "countryCallingCode": 219,
+    "countryName": "unused Libya"
+  },
+  {
+    "countryCallingCode": 210,
+    "countryName": "unused Morocco"
+  },
+  {
+    "countryCallingCode": 211,
+    "countryName": "unused Morocco"
+  },
+  {
+    "countryCallingCode": 217,
+    "countryName": "unused Tunisia"
+  }
+]

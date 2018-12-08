@@ -1,0 +1,13 @@
+﻿http://aspnetcorepath.com/automapper-in-asp-net-core-2/
+
+https://www.codeproject.com/Articles/1246856/Basic-net-API-structure-with-EF-Core-Jwt-Oracle-Db
+
+https://www.codeproject.com/Tips/1238893/ASP-NET-Core-with-automapper
+
+https://garywoodfine.com/using-automapper-domain-objects-dotnet-core/
+
+https://github.com/AutoMapper/AutoMapper.Collection
+
+http://automapper.org/
+
+https://blog.csdn.net/sD7O95O/article/details/78700934

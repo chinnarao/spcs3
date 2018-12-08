@@ -1,0 +1,64 @@
+﻿1. create a .net core class library. install nuget below:
+2. Microsoft.EntityFrameworkCore
+3. Microsoft.EntityFrameworkCore.Design
+4. Microsoft.EntityFrameworkCore.Relational
+5. Microsoft.EntityFrameworkCore.SqlServer
+6. Microsoft.Extensions.Configuration.FileExtensions
+7. Microsoft.Extensions.Configuration.Json
+8. Microsoft.Extensions.DependencyInjection.Abstractions
+
+step 1: vs -> tools -> nuget package manager -> package manager console
+step 2: Execute : Remove-Migration	-Context "AdDbContext" -Project "Migrations" -StartupProject "Migrations" -Force
+step2.1 Drop-Database		-Context "AdDbContext" -Project "Migrations" -StartupProject "Migrations"
+step 3: observe , the database will be removed by the above stmt in ssms. and migration folder will be empty in "DbContexts.AdMigration" project
+step 4: Execute : Add-Migration		-Context "AdDbContext" -Project "Migrations" -StartupProject "Migrations" -Name "AdInit"  -OutputDir "AdMigrations"
+step 5: now observe, in migration folder, 3 files will be created , _initial and initial.designer and snapshot files. 
+step 6: observe , no database is created in ssms.
+step 7: Execute : Update-Database		-Context "AdDbContext" -Project "Migrations" -StartupProject "Migrations"
+step 8: observe ad database is created and available in ssms.
+
+
+Note: Default project dropdown selection does not matter when you migrate with below stmts:
+--------------------------------------------------------------------------------------------------------
+remove manually direct folder instead of command:  --Remove-Migration	-Context "AdDbContext" -Project "Migrations" -StartupProject "Migrations" -Force
+-------------------------------------------------
+Drop-Database		-Context "AdDbContext" -Project "Migrations" -StartupProject "Migrations"
+Add-Migration		-Context "AdDbContext" -Project "Migrations" -StartupProject "Migrations" -Name "Initial"  -OutputDir "AdMigrations"
+Update-Database		-Context "AdDbContext" -Project "Migrations" -StartupProject "Migrations"
+
+
+Remove-Migration	-Context "ArticleDbContext" -Project "Migrations" -StartupProject "Migrations" -Force
+Drop-Database		-Context "ArticleDbContext" -Project "Migrations" -StartupProject "Migrations"
+Add-Migration		-Context "ArticleDbContext" -Project "Migrations" -StartupProject "Migrations" -Name "Initial"  -OutputDir "ArticleMigrations"
+Update-Database		-Context "ArticleDbContext" -Project "Migrations" -StartupProject "Migrations"
+
+script migration for production: https://wakeupandcode.com/ef-core-migrations-in-asp-net-core/
+please follow this: which is better than above one:
+https://github.com/ry8806/Blog-EFCore-CustomMigration
+https://github.com/bricelam/Sample-SplitMigrations
+https://github.com/aspnet/EntityFrameworkCore/blob/0906670e469a0e1054e8b8bc6fddd3c028a5cb5a/test/EFCore.SqlServer.FunctionalTests/Query/DbFunctionsSqlServerTest.cs
+https://github.com/iamoldli/AspNetCore/blob/f6db23e1f8f3a68b98743e18ff08886cc6c2d3f2/Modules/EntityFrameworkCore/test/EFCore.SqlServer.FunctionalTests/Query/DbFunctionsSqlServerTest.cs
+Script-Migration -To <starting-migration>
+Script-Migration -From <ending-migration>
+
+Update-Database -Migration 0
+=====================================
+USE Ad
+GO
+
+EXEC sys.sp_helpindex @objname = [Ad]
+GO
+=====
+
+CREATE UNIQUE INDEX ui_ukJobCand ON HumanResources.JobCandidate(JobCandidateID);  
+CREATE FULLTEXT CATALOG ft AS DEFAULT;  
+CREATE FULLTEXT INDEX ON HumanResources.JobCandidate(Resume)   
+   KEY INDEX ui_ukJobCand   
+   WITH STOPLIST = SYSTEM;  
+GO
+
+SELECT 
+	CASE FULLTEXTSERVICEPROPERTY('IsFullTextInstalled')
+		WHEN 1 THEN 'Full-Text installed.' 
+		ELSE 'Full-Text is NOT installed.' 
+	END;

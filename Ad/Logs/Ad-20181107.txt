@@ -1,0 +1,17 @@
+2018-11-07T00:45:16.1444454-08:00 0HLI4E2T2J3N8:00000001 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:44394/api/ad/getallads   (ca22a1cb)
+2018-11-07T00:45:16.1705381-08:00 0HLI4E2T2J3N8:00000001 [INF] Policy execution successful. (0204925d)
+2018-11-07T00:45:16.1766066-08:00 0HLI4E2T2J3N8:00000001 [INF] Request finished in 33.4594ms 204  (791a596a)
+2018-11-07T00:45:16.1991988-08:00 0HLI4E2T2J3N8:00000002 [INF] Request starting HTTP/1.1 GET http://localhost:44394/api/ad/getallads application/json  (ca22a1cb)
+2018-11-07T00:45:16.2068821-08:00 0HLI4E2T2J3N8:00000002 [INF] Successfully validated the token. (60169667)
+2018-11-07T00:45:16.2106842-08:00 0HLI4E2T2J3N8:00000002 [INF] Policy execution successful. (0204925d)
+2018-11-07T00:45:16.2169361-08:00 0HLI4E2T2J3N8:00000002 [INF] Route matched with "{action = \"GetAllAds\", controller = \"Ad\"}". Executing action "Ad.Controllers.AdController.GetAllAds (Ad)" (a44c0341)
+2018-11-07T00:45:16.2206591-08:00 0HLI4E2T2J3N8:00000002 [INF] Authorization was successful. (0d575a54)
+2018-11-07T00:45:16.2256697-08:00 0HLI4E2T2J3N8:00000002 [INF] Executing action method "Ad.Controllers.AdController.GetAllAds (Ad)" - Validation state: Valid (dad538d7)
+2018-11-07T00:45:16.2324161-08:00 0HLI4E2T2J3N8:00000002 [INF] Entity Framework Core "2.2.0-preview3-35497" initialized '"AdDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None" (9958f5bb)
+2018-11-07T00:45:16.2542465-08:00 0HLI4E2T2J3N8:00000002 [INF] Executed DbCommand ("4"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [a].[AdId], [a].[AdContent], [a].[AdDisplayDays], [a].[AdTitle], [a].[AddressCity], [a].[AddressCountryCode], [a].[AddressCountryName], [a].[AddressDistrictOrCounty], [a].[AddressLatitude], [a].[AddressLongitude], [a].[AddressPartiesMeetingLandmarkName], [a].[AddressState], [a].[AddressStreet], [a].[AddressZipCode], [a].[AttachedAssetsInCloudCount], [a].[AttachedAssetsInCloudStorageId], [a].[AttachedAssetsStoredInCloudBaseFolderPath], [a].[CreatedDateTime], [a].[DeletedDateTime], [a].[IsActive], [a].[IsDeleted], [a].[IsPublished], [a].[ItemCost], [a].[ItemCostCurrencyName], [a].[ItemCurrencyISO_4217], [a].[LastActiveDateTime], [a].[LastDraftOrBeforePublishedDateTime], [a].[LastInActiveDateTime], [a].[LastPublishedDateTime], [a].[Tag1], [a].[Tag2], [a].[Tag3], [a].[Tag4], [a].[Tag5], [a].[Tag6], [a].[Tag7], [a].[Tag8], [a].[Tag9], [a].[UpdatedDateTime], [a].[UserIdOrEmail], [a].[UserLoggedInSocialProviderName], [a].[UserPhoneNumber], [a].[UserSocialAvatarUrl]
+FROM [Ad] AS [a]" (0723d8ff)
+2018-11-07T00:45:16.2579308-08:00 0HLI4E2T2J3N8:00000002 [INF] Executed action method "Ad.Controllers.AdController.GetAllAds (Ad)", returned result "Microsoft.AspNetCore.Mvc.OkObjectResult" in 29.5424ms. (50a9e262)
+2018-11-07T00:45:16.2608180-08:00 0HLI4E2T2J3N8:00000002 [INF] Executing ObjectResult, writing value of type '"System.Collections.Generic.List`1[[Models.Ad.Dtos.AdDto, Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"'. (8a1b66c8)
+2018-11-07T00:45:16.2665400-08:00 0HLI4E2T2J3N8:00000002 [INF] Executed action "Ad.Controllers.AdController.GetAllAds (Ad)" in 45.9633ms (afa2e885)
+2018-11-07T00:45:16.2707694-08:00 0HLI4E2T2J3N8:00000002 [INF] Request finished in 70.6075ms 200 application/json; charset=utf-8 (791a596a)
