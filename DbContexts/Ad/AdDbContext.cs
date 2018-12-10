@@ -10,6 +10,7 @@ namespace DbContexts.Ad
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Share.Models.Ad.Entities.Ad>().HasQueryFilter(global => global.IsPublished && global.IsActivated && !global.IsDeleted);
             modelBuilder.ApplyConfiguration(new AdConfig());
         }
     }

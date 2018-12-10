@@ -5,8 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Share.Constants;
-using Share.Utilities;
 using Services.Common;
 using Share.Models.Common;
 using Share.Extensions;
@@ -29,7 +27,8 @@ namespace Ad.Util
             dto.AdDisplayDays = _configuration["AdDefaultDisplayActiveDays"].ConvertToByte();
             dto.AttachedAssetsInCloudStorageId = Guid.NewGuid();
             dto.CreatedDateTime = dto.UpdatedDateTime = DateTime.UtcNow;
-            dto.IsDeleted = dto.IsActivated = dto.IsPublished = false;
+            dto.IsDeleted = false;
+            dto.IsActivated = dto.IsPublished = true;
 
             if (string.IsNullOrWhiteSpace(_configuration["FolderPathForGoogleHtmlTemplate"]))
                 errors.Add("FolderPathForGoogleHtmlTemplate");

@@ -41,7 +41,7 @@ namespace Services.Ad
 
         public AdDto GetAdDetail(long adId)
         {
-            var ad = _adRepository.Entities.AsNoTracking().Single(i => i.AdId == adId);
+            var ad = _adRepository.Entities.AsNoTracking().FirstOrDefault(i => i.AdId == adId);
             AdDto adDto = _mapper.Map<AdDto>(ad);
             return adDto;
         }
