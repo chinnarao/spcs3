@@ -22,22 +22,12 @@ namespace Services.Ad
     public class AdSearchService : IAdSearchService
     {
         private readonly IConfiguration _configuration;
-        private readonly ILogger _logger;
-        private readonly IMapper _mapper;
-        private readonly ICacheService _cacheService;
         private readonly IRepository<Share.Models.Ad.Entities.Ad, AdDbContext> _adRepository;
-        private readonly IJsonDataService _jsonDataService;
 
-        public AdSearchService(ILogger<AdService> logger, IMapper mapper, ICacheService cacheService, 
-            IRepository<Share.Models.Ad.Entities.Ad, AdDbContext> adRepository,
-            IConfiguration configuration, IJsonDataService jsonDataService)
+        public AdSearchService(IConfiguration configuration, IRepository<Share.Models.Ad.Entities.Ad, AdDbContext> adRepository)
         {
             _configuration = configuration;
-            _logger = logger;
-            _mapper = mapper;
-            _cacheService = cacheService;
             _adRepository = adRepository;
-            _jsonDataService = jsonDataService;
         }
         
         //https://gunnarpeipman.com/net/ef-core-paging/
@@ -141,7 +131,7 @@ namespace Services.Ad
 
         public dynamic SearchAds(AdSearchDto options)
         {
-            IQueryable<Share.Models.Ad.Entities.Ad> query = _adRepository.Entities.AsNoTracking().TagWith(nameof(SearchAds)).Where(w => w.IsPublished && w.IsActivated && !w.IsDeleted);
+            IQueryable<Share.Models.Ad.Entities.Ad> query = _adRepository.Entities.AsNoTracking().TagWith(nameof(SearchAds));
 
             #region FreeText
             int language = _configuration["SqlServerFullTextIndexLanguage"].ConvertToInt();
