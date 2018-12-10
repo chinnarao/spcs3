@@ -3,6 +3,11 @@ using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.Linq;
 using System.Reflection;
+using Share.Models.Common;
+using System;
+using AutoMapper.QueryableExtensions;
+using AutoMapper;
+using Share._3rdParty;
 
 namespace Share.Extensions
 {
@@ -27,6 +32,46 @@ namespace Share.Extensions
             var sql = modelVisitor.Queries.First().ToString();
 
             return sql;
+        }
+
+        public static PagedResult<T> GetPaged<T>(this IQueryable<T> query, int page, int pageSize) where T : class
+        {
+            var result = new PagedResult<T>();
+            result.Page = page;
+            result.PageSize = pageSize;
+            result.RowCount = query.Count();
+
+            var pageCount = (double)result.RowCount / pageSize;
+            result.PageCount = (int)Math.Ceiling(pageCount);
+
+            var skip = (page - 1) * pageSize;
+            result.Results = query.Skip(skip).Take(pageSize).ToList();
+
+            return result;
+        }
+
+        public static PagedResult<U> GetPaged<T, U>(this IQueryable<T> query, int page, int pageSize, bool isValidPagesTotal, int? pagesTotal = default(int?)) where U : class
+        {
+            var config = new MapperConfiguration(cfg => {
+                cfg.AddProfile<AdAutoMapperProfile>();
+            });
+
+            var result = new PagedResult<U>();
+            result.Page = page;
+            result.PageSize = pageSize;
+
+            if (isValidPagesTotal)
+                result.RowCount = pagesTotal.Value * result.PageSize;
+            else
+                result.RowCount = query.Count();
+            result.PageCount = (int)Math.Ceiling((double)result.RowCount / pageSize);
+
+            var skip = (page - 1) * pageSize;
+            result.Results = query.Skip(skip)
+                                  .Take(pageSize)
+                                  .ProjectTo<U>(config)
+                                  .ToList();
+            return result;
         }
     }
 }

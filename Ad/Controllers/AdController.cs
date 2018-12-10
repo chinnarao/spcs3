@@ -1,15 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Share.Models.Ad.Dtos;
 using Services.Ad;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using Ad.Util;
-using Microsoft.AspNetCore.Authorization;
 using Services.Common;
 
 namespace Ad.Controllers
@@ -24,14 +20,17 @@ namespace Ad.Controllers
         private readonly IAdService _adService;
         private readonly IAdSearchService _adSearchService;
         private readonly IJsonDataService _jsonDataService;
+        private readonly IAdCreateService _adCreateService;
 
-        public AdController(IConfiguration configuration, ILogger<AdController> logger, IAdService adService, IAdSearchService adSearchService, IJsonDataService jsonDataService)
+        public AdController(IConfiguration configuration, ILogger<AdController> logger,  IJsonDataService jsonDataService, 
+            IAdService adService, IAdSearchService adSearchService, IAdCreateService adCreateService)
         {
             _configuration = configuration;
             _logger = logger;
             _adService = adService;
             _jsonDataService = jsonDataService;
             _adSearchService = adSearchService;
+            _adCreateService = adCreateService;
         }
 
         [HttpPost]
@@ -39,14 +38,12 @@ namespace Ad.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.Errors());
-            model.Defaults(_configuration);
-            if (_jsonDataService.IsValidCategory(model.AdCategoryId))
-                return BadRequest(nameof(model.AdCategoryId));
-            if (_jsonDataService.IsValidCallingCode(int.Parse(model.UserPhoneCountryCode)))
-                return BadRequest(nameof(model.UserPhoneCountryCode));
-            model.GoogleStorageAdFileDto = new GoogleStorageAdFileDto();
-            model.GoogleStorageAdFileDto.Values(_configuration, model.AttachedAssetsInCloudStorageId.Value);
-            AdDto dto = _adService.CreateAd(model);
+            
+            KeyValuePair<bool, string> kvp = model.IsValidCreateAdInputs(_configuration, _jsonDataService);
+            if (kvp.Key)
+                return BadRequest("In valid inputs: " + kvp.Value);
+
+            AdDto dto = _adCreateService.CreateAd(model);
             return Ok(dto);
         }
         
@@ -56,7 +53,7 @@ namespace Ad.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.Errors());
 
-            KeyValuePair<bool, string> kvp = options.IsValidSearchInputs(_jsonDataService);
+            KeyValuePair<bool, string> kvp = options.IsValidSearchInputs(_configuration, _jsonDataService);
             if (kvp.Key)
                 return BadRequest( "In valid inputs: " + kvp.Value);
 

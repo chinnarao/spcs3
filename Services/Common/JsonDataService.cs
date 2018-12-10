@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Share.Utilities;
 using Newtonsoft.Json;
 using System.Linq;
+using Share.Extensions;
 
 namespace Services.Common
 {
@@ -27,9 +28,9 @@ namespace Services.Common
             List<Country> countries = _cacheService.Get<List<Country>>(nameof(GetCountries));
             if (countries == null)
             {
-                string json = _fileReadService.ReadJsonFile(_configuration["FolderPathForCountryJson"]);
+                string json = _fileReadService.ReadFile(_configuration["FolderPathForCountryJson"]);
                 Countries jsonCountry = JsonConvert.DeserializeObject<Countries>(json);
-                jsonCountry = _cacheService.GetOrAdd<Countries>(nameof(GetCountries), () => jsonCountry, Utility.GetCacheExpireDateTime(_configuration["CacheExpireDays"]));
+                jsonCountry = _cacheService.GetOrAdd<Countries>(nameof(GetCountries), () => jsonCountry, _configuration["CacheExpireDays"].ConvertToCacheExpireDateTime());
                 if (jsonCountry == null)
                     throw new Exception(nameof(jsonCountry.Country));
                 countries = jsonCountry.Country;
@@ -42,10 +43,10 @@ namespace Services.Common
             LookUp lookUp = _cacheService.Get<LookUp>(nameof(GetLookUpBy));
             if (lookUp == null)
             {
-                string json = _fileReadService.ReadJsonFile(_configuration["FolderPathForLookUpJson"]);
+                string json = _fileReadService.ReadFile(_configuration["FolderPathForLookUpJson"]);
                 lookUp = JsonConvert.DeserializeObject<LookUp>(json);
                 IsValidLookUp(lookUp);
-                lookUp = _cacheService.GetOrAdd<LookUp>(nameof(GetLookUpBy), () => lookUp, Utility.GetCacheExpireDateTime(_configuration["CacheExpireDays"]));
+                lookUp = _cacheService.GetOrAdd<LookUp>(nameof(GetLookUpBy), () => lookUp, _configuration["CacheExpireDays"].ConvertToCacheExpireDateTime());
                 IsValidLookUp(lookUp);
             }
             return lookUp;

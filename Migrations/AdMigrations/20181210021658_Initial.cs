@@ -1,6 +1,6 @@
 ﻿using System;
-using GeoAPI.Geometries;
 using Microsoft.EntityFrameworkCore.Migrations;
+using NetTopologySuite.Geometries;
 
 namespace Migrations.AdMigrations
 {
@@ -32,7 +32,7 @@ namespace Migrations.AdMigrations
                     AddressCountryName = table.Column<string>(unicode: false, maxLength: 75, nullable: true),
                     AddressLatitude = table.Column<decimal>(type: "decimal(20, 10)", nullable: false, defaultValue: 1m),
                     AddressLongitude = table.Column<decimal>(type: "decimal(20, 10)", nullable: false, defaultValue: 1m),
-                    AddressLocation = table.Column<IPoint>(nullable: false),
+                    AddressLocation = table.Column<Point>(nullable: false),
                     ItemCost = table.Column<double>(nullable: false, defaultValue: 0.0),
                     ItemCurrencyCode = table.Column<string>(unicode: false, maxLength: 3, nullable: true),
                     ItemConditionId = table.Column<byte>(nullable: false),

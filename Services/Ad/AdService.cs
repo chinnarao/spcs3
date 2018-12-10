@@ -1,17 +1,14 @@
 ﻿using System;
-using System.IO;
 using AutoMapper;
 using Share.Models.Ad.Dtos;
 using DbContexts.Ad;
 using Repository;
 using Microsoft.Extensions.Logging;
-using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Services.Commmon;
 using Share._3rdParty;
-using Share.Utilities;
 using Microsoft.Extensions.Configuration;
 using Services.Common;
 
@@ -41,56 +38,6 @@ namespace Services.Ad
             _adRepository = adRepository;
             _jsonDataService = jsonDataService;
         }
-
-        #region CreateAd
-        public AdDto CreateAd(AdDto dto)
-        {
-            // transaction has to implement or not , has to think more required.
-            Share.Models.Ad.Entities.Ad ad = this.InsertAd(dto);
-            dto.GoogleStorageAdFileDto.AdAnonymousDataObjectForHtmlTemplate = GetAdAsAnonymousObjectForHtmlTemplate(dto);
-            this.UploadObjectInGoogleStorage(dto.GoogleStorageAdFileDto);
-            dto.GoogleStorageAdFileDto = null;
-            return dto;
-        }
-        private Share.Models.Ad.Entities.Ad InsertAd(AdDto dto)
-        {
-            Share.Models.Ad.Entities.Ad ad = _mapper.Map<Share.Models.Ad.Entities.Ad>(dto);
-            ad.UserPhoneNumber = Utility.GetLongNumberFromString(dto.UserPhoneNumber);
-            ad.UserPhoneCountryCode = Utility.GetShortNumberFromString(dto.UserPhoneCountryCode);
-            ad.AddressLocation = Utility.CreatePoint(dto.AddressLongitude, dto.AddressLatitude);
-            RepositoryResult result = _adRepository.Create(ad);
-            if (!result.Succeeded) throw new Exception(string.Join(Path.PathSeparator, result.Errors));
-            return ad;
-        }
-        private void UploadObjectInGoogleStorage(GoogleStorageAdFileDto model)
-        {
-            if (model == null) throw new ArgumentNullException(nameof(GoogleStorageAdFileDto));
-            if (model.AdAnonymousDataObjectForHtmlTemplate == null) throw new ArgumentNullException(nameof(model.AdAnonymousDataObjectForHtmlTemplate));
-            string content = _cacheService.Get<string>(model.CACHE_KEY);
-            if (string.IsNullOrWhiteSpace(content))
-            {
-                content = System.IO.File.ReadAllText(model.HtmlFileTemplateFullPathWithExt);
-                if (string.IsNullOrEmpty(content)) throw new Exception(nameof(content));
-                content = _cacheService.GetOrAdd<string>(model.CACHE_KEY, () => content, model.CacheExpiryDateTimeForHtmlTemplate);
-                if (string.IsNullOrEmpty(content)) throw new Exception(nameof(content));
-            }
-            content = "";// content.ToParseLiquidRender(model.AdAnonymousDataObjectForHtmlTemplate);
-            if (string.IsNullOrEmpty(content)) throw new Exception(nameof(content));
-            Stream stream = new MemoryStream(Encoding.UTF8.GetBytes(content));
-            if (stream == null || stream.Length <= 0) throw new Exception(nameof(stream));
-            _googleStorage.UploadObject(model.GoogleStorageBucketName, stream, model.GoogleStorageObjectNameWithExt, model.ContentType);
-        }
-
-        private dynamic GetAdAsAnonymousObjectForHtmlTemplate(AdDto dto)
-        {
-            return new
-            {
-                activedays = dto.AdDisplayDays,
-                adaddressatpublicsecuritynearlandmarkname = dto.AddressPartiesMeetingLandmark,
-            };
-        }
-
-        #endregion
 
         public AdDto GetAdDetail(long adId)
         {
@@ -129,7 +76,6 @@ namespace Services.Ad
 
     public interface IAdService
     {
-        AdDto CreateAd(AdDto adDto);
         AdDto GetAdDetail(long adId);
         AdDto UpdateAd(AdDto adDto);
         HashSet<string> GetAllUniqueTags();

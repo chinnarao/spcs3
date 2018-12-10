@@ -45,6 +45,7 @@ namespace Ad
             services.AddScoped<IFileRead, FileRead>();
             services.AddScoped<IJsonDataService, JsonDataService>();
             services.AddScoped<IAdSearchService, AdSearchService>();
+            services.AddScoped<IAdCreateService, AdCreateService>();
             services.AddScoped<IGoogleStorage, GoogleStorage>();
             services.AddScoped<ICacheService, LockedFactoryCacheService>();
             services.AddScoped<IRepository<Share.Models.Ad.Entities.Ad, AdDbContext>, Repository<Share.Models.Ad.Entities.Ad, AdDbContext>>();

@@ -2,6 +2,7 @@
 using System.IO;
 using Microsoft.Extensions.Configuration;
 using Share.Utilities;
+using Share.Extensions;
 
 namespace Services.Commmon
 {
@@ -16,28 +17,29 @@ namespace Services.Commmon
             _cacheService = cacheService;
         }
 
-        public string ReadJsonFile(string path)
+        public string ReadFile(string path)
         {
             if (string.IsNullOrWhiteSpace(path))
                 throw new Exception(nameof(path));
-            string json = _cacheService.Get<string>(path);
-            if (string.IsNullOrWhiteSpace(json))
+            string cacheKey = string.Concat(nameof(ReadFile), path);
+            string content = _cacheService.Get<string>(cacheKey);
+            if (string.IsNullOrWhiteSpace(content))
             {
-                path = Utility.HappyPath(path);
+                path = path.ConvertToHappyPath();
                 if (!File.Exists(path))
                     throw new Exception(nameof(path));
-                json = File.ReadAllText(path);
-                if (string.IsNullOrWhiteSpace(json))
-                    throw new Exception(nameof(json));
-                json = _cacheService.GetOrAdd<string>(path, () => json, Utility.GetCacheExpireDateTime(_configuration["CacheExpireDays"]));
-                if (string.IsNullOrEmpty(json)) throw new Exception(nameof(json));
+                content = File.ReadAllText(path);
+                if (string.IsNullOrWhiteSpace(content))
+                    throw new Exception(nameof(content));
+                content = _cacheService.GetOrAdd<string>(cacheKey, () => content, _configuration["CacheExpireDays"].ConvertToCacheExpireDateTime());
+                if (string.IsNullOrEmpty(content)) throw new Exception(nameof(content));
             }
-            return json;
+            return content;
         }
     }
 
     public interface IFileRead
     {
-        string ReadJsonFile(string fileNameWithExtension);
+        string ReadFile(string FolderPathForCountryJson);
     }
 }

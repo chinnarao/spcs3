@@ -4,8 +4,8 @@
     {
         public const string SP_DAL_QUALIFIEDNAME = "SP.DAL.Models.{0}, SP.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null";
         public static readonly string Entry = "_Entry";
-        public static readonly string AD_HTML_FILE_TEMPLATE = "_AdHtmlFileTemplate"; //this is for chache key in html file in file project used
-        public static readonly string Article_HTML_FILE_TEMPLATE = "_ArticleHtmlFileTemplate"; //this is for chache key in html file in file project used
+        //public static readonly string AD_HTML_FILE_TEMPLATE = "_AdHtmlFileTemplate"; //this is for chache key in html file in file project used
+        //public static readonly string Article_HTML_FILE_TEMPLATE = "_ArticleHtmlFileTemplate"; //this is for chache key in html file in file project used
     }
 
     public static class LoggingEvents

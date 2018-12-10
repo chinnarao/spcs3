@@ -13,8 +13,8 @@ namespace Share._3rdParty
             RuleFor(x => x.AdId).MaximumLength(19);
             RuleFor(x => x.AdTitle).NotEmpty().Length(2, 500);
             RuleFor(x => x.AdContent).NotEmpty().MaximumLength(8000);
-            RuleFor(x => x.AdCategoryId);
-            RuleFor(x => x.AdDisplayDays).NotNull().GreaterThan<AdDto, Byte>(Byte.MinValue).LessThan<AdDto, Byte>(Byte.MaxValue);
+            RuleFor(x => x.AdCategoryId).NotEmpty();
+            RuleFor(x => x.AdDisplayDays).NotEmpty().GreaterThan<AdDto, Byte>(Byte.MinValue).LessThan<AdDto, Byte>(Byte.MaxValue);
 
             RuleFor(x => x.UserIdOrEmail).NotEmpty().MaximumLength(50);
             RuleFor(x => x.UserPhoneCountryCode).Must(IsValidCallingCode);
@@ -48,6 +48,7 @@ namespace Share._3rdParty
 
             RuleFor(x => x.ItemCost).GreaterThanOrEqualTo(0);
             RuleFor(x => x.ItemCurrencyCode).MaximumLength(3);
+            RuleFor(x => x.ItemConditionId).NotEmpty();
             RuleFor(x => x.AttachedAssetsInCloudStorageId).NotEqual(Guid.Empty);
             RuleFor(x => x.AttachedAssetsStoredInCloudBaseFolderPath).MaximumLength(5000).Must(IsValidURL);
 

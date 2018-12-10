@@ -4,8 +4,6 @@ using System;
 using System.Collections.Generic;
 using Share.Enums;
 using System.Linq;
-using System.IO;
-using System.Reflection;
 
 namespace Share.Utilities
 {
@@ -33,23 +31,23 @@ namespace Share.Utilities
         public static Dictionary<string, string> GetMimeTypes()
         {
             return new Dictionary<string, string>
-        {
-            {".txt",  "text/plain"},
-            {".pdf",  "application/pdf"},
-            {".doc",  "application/vnd.ms-word"},
-            {".docx", "application/vnd.ms-word"},
-            {".xls",  "application/vnd.ms-excel"},
-            {".xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"},
-            {".png",  "image/png"},
-            {".jpg",  "image/jpeg"},
-            {".jpeg", "image/jpeg"},
-            {".gif",  "image/gif"},
-            {".csv",  "text/csv"},
-            { ".zip", "application/x-rar-compressed"},
-            { ".json", " application/json"},
-            { ".htm", "text/html"},
-            { ".html", "text/html"}
-        };
+            {
+                {".txt",  "text/plain"},
+                {".pdf",  "application/pdf"},
+                {".doc",  "application/vnd.ms-word"},
+                {".docx", "application/vnd.ms-word"},
+                {".xls",  "application/vnd.ms-excel"},
+                {".xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"},
+                {".png",  "image/png"},
+                {".jpg",  "image/jpeg"},
+                {".jpeg", "image/jpeg"},
+                {".gif",  "image/gif"},
+                {".csv",  "text/csv"},
+                { ".zip", "application/x-rar-compressed"},
+                { ".json", " application/json"},
+                { ".htm", "text/html"},
+                { ".html", "text/html"}
+            };
         }
 
         /// <summary>
@@ -105,37 +103,25 @@ namespace Share.Utilities
         //    return NtsGeometryServices.Instance.CreateGeometryFactory(4326).CreatePoint(new Coordinate(longitude, lattitude));
         //}
 
-        //public static IPoint CreatePoint(string longitude, string latitude)
+        //public static IPoint CreatePointOrDefault(string longitude, string latitude)
         //{
-        //    double longi;
-        //    if (!double.TryParse(longitude, out longi))
-        //        longi = 1.0;
-        //    double lati;
-        //    if (!double.TryParse(longitude, out lati))
-        //        lati = 1.0;
-        //    return NtsGeometryServices.Instance.CreateGeometryFactory(4326).CreatePoint(new Coordinate(longi, lati));
+        //    Coordinate c = new Coordinate(1.0, 1.0);
+        //    double longi; double lati;
+        //    if (!string.IsNullOrWhiteSpace(longitude) && !string.IsNullOrWhiteSpace(latitude) && double.TryParse(longitude, out longi) && double.TryParse(longitude, out lati))
+        //        c = new Coordinate(longi, lati);
+        //    return NtsGeometryServices.Instance.CreateGeometryFactory(4326).CreatePoint(c);
         //}
 
-        public static IPoint CreatePointOrDefault(string longitude, string latitude)
-        {
-            Coordinate c = new Coordinate(1.0, 1.0);
-            double longi; double lati;
-            if (!string.IsNullOrWhiteSpace(longitude) && !string.IsNullOrWhiteSpace(latitude) && double.TryParse(longitude, out longi) && double.TryParse(longitude, out lati))
-                c = new Coordinate(longi, lati);
-            //Point p = new Point
-            return NtsGeometryServices.Instance.CreateGeometryFactory(4326).CreatePoint(c);
-        }
-        public static IPoint CreatePoint(string longitude, string latitude)
-        {
-            double longi; double lati;
-            if (double.TryParse(longitude, out longi) && double.TryParse(longitude, out lati))
-                return NtsGeometryServices.Instance.CreateGeometryFactory(4326).CreatePoint(new Coordinate(longi, lati));
-            return null;
-        }
+        //public static IPoint CreatePoint(string longitude, string latitude)
+        //{
+        //    double longi; double lati;
+        //    if (double.TryParse(longitude, out longi) && double.TryParse(longitude, out lati))
+        //        return NtsGeometryServices.Instance.CreateGeometryFactory(4326).CreatePoint(new Coordinate(longi, lati));
+        //    return null;
+        //}
 
         public static bool IsValidCountryCallingCode(int callingCode)
         {
-            
             int[] codes = new int[] {   1, 7, 20, 27, 28, 30, 31, 32, 33, 34, 36, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49,
                                         51, 52, 53, 54, 55, 56, 57, 58, 60, 61, 62, 63, 64, 65, 66, 81, 82, 84, 86, 90, 91, 92, 93, 94, 95, 98,
                                         210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230,
@@ -149,48 +135,6 @@ namespace Share.Utilities
             if (callingCode < codes.Min() || callingCode > codes.Max())
                 return false;
             return codes.Any(i => i == callingCode);
-        }
-
-        public static long? GetLongNumberFromString(string numberString)
-        {
-            if (!string.IsNullOrWhiteSpace(numberString))
-            {
-                long number;
-                if (long.TryParse(numberString, out number))
-                    return number;
-            }
-            return null;
-        }
-
-        public static short? GetShortNumberFromString(string numberString)
-        {
-            if (!string.IsNullOrWhiteSpace(numberString))
-            {
-                short number;
-                if (short.TryParse(numberString, out number))
-                    return number;
-            }
-            return null;
-        }
-
-        public static DateTime GetCacheExpireDateTime(string CacheExpireDays)
-        {
-            double inMemoryCacheExpireDays;
-            if (double.TryParse(CacheExpireDays, out inMemoryCacheExpireDays))
-                return DateTime.UtcNow.AddDays(inMemoryCacheExpireDays);
-            else
-                throw new Exception(nameof(CacheExpireDays));
-        }
-
-
-        //var path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
-        //var path = Path.GetDirectoryName(new Uri(System.Reflection.Assembly.GetExecutingAssembly().Location).LocalPath);
-        // success in test proj and failed in web proj, Ad: Directory.GetCurrentDirectory()
-        public static string HappyPath(string happyPath)
-        {
-            if (happyPath.Contains(','))
-                happyPath = string.Join<string>(Path.DirectorySeparatorChar, happyPath.Split(',', StringSplitOptions.RemoveEmptyEntries));
-            return Path.Combine(Path.GetDirectoryName(new Uri(System.Reflection.Assembly.GetExecutingAssembly().Location).LocalPath), happyPath);
         }
 
         //-180.0 to 180.0.
@@ -223,13 +167,6 @@ namespace Share.Utilities
             }
             else
                 return false;
-        }
-
-        public static double ConvertToDoubleFromString(string value)
-        {
-            double d = 0;
-            double.TryParse(value, out d);
-            return d;
         }
     }
 }

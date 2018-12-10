@@ -4,7 +4,6 @@ using Share.Models.Ad.Dtos;
 using DbContexts.Ad;
 using Repository;
 using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Share.Extensions;
@@ -12,6 +11,8 @@ using Services.Commmon;
 using Microsoft.Extensions.Configuration;
 using Services.Common;
 using Share.Enums;
+using Share.Models.Common;
+using System.Globalization;
 
 namespace Services.Ad
 {
@@ -35,38 +36,30 @@ namespace Services.Ad
             _adRepository = adRepository;
             _jsonDataService = jsonDataService;
         }
+        
+        //https://gunnarpeipman.com/net/ef-core-paging/
         //https://dzone.com/articles/using-the-angular-material-paginator-with-aspnet-c
-        // https://github.com/dncuug/X.PagedList
         //https://docs.microsoft.com/en-us/aspnet/core/data/ef-rp/sort-filter-page?view=aspnetcore-2.1
         //https://docs.microsoft.com/en-us/sql/relational-databases/search/query-with-full-text-search?view=sql-server-2017
         //https://github.com/uber-asido/backend/blob/e32bf1ddabe500002d835228993707503449e06c/src/Uber.Module.Search.EFCore/Store/SearchItemStore.cs
         //https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql/blob/42c335ceac6d93d1c0487ef45fc992810c07fd9d/upstream/EFCore.Upstream.FunctionalTests/Query/DbFunctionsMySqlTest.cs
         public dynamic SearchAds(AdSearchDto options)
         {
-            IQueryable<Share.Models.Ad.Entities.Ad> query = _adRepository.Entities.AsNoTracking().Where(w => w.IsPublished && w.IsActivated && !w.IsDeleted);
+            IQueryable<Share.Models.Ad.Entities.Ad> query = _adRepository.Entities.AsNoTracking().TagWith(nameof(SearchAds)).Where(w => w.IsPublished && w.IsActivated && !w.IsDeleted);
 
+            #region FreeText
+            int language = _configuration["SqlServerFullTextIndexLanguage"].ConvertToInt();
+            int lcid = CultureInfo.CurrentCulture.LCID; // 1033 is coming
             // implemented and chosen FreeText from 4 options: 1.FreeText 2.Contains 3.ContainsTable 4.FreeTextTable
             // figure out later: SqlServerDbFunctionsExtensions
             if (options.IsValidSearchText)
             {
-                //query = query.Where(ft => EF.Functions.FreeText(ft.AdContent, options.SearchText));
+                query = query.Where(ft => EF.Functions.FreeText(ft.AdContent, options.SearchText));
                 query = query.Where(ft => EF.Functions.FreeText(ft.AdTitle, options.SearchText));
             }
+            #endregion
 
-            string connection = "Server=localhost;Database=Ad;Trusted_Connection=True;";
-            var optionBuilder = new DbContextOptionsBuilder<AdDbContext>().UseSqlServer(connection, ya => ya.UseNetTopologySuite());
-            AdDbContext context = new AdDbContext(optionBuilder.Options);
-
-            IQueryable<Share.Models.Ad.Entities.Ad> query12 = context.Ads.Where(w => w.IsPublished && w.IsActivated && !w.IsDeleted);
-            var sfsfs = query12.ToList();
-
-            IQueryable<Share.Models.Ad.Entities.Ad> query1 = context.Ads.Where(ft => EF.Functions.Contains(ft.AdTitle, "title", 1033));
-            var aaa = query1.ToList();
-            //query1 = query1.Where(ft => EF.Functions.FreeText(ft.AdTitle, "title", 1033));  // 0: newtral, 1033: english
-
-            string sql = query1.ToSql<Share.Models.Ad.Entities.Ad>();
-
-
+            #region General
             if (options.IsValidCategory)
                 query = query.Where(q => q.AdCategoryId == options.CategoryId);
             if (options.IsValidCondition)
@@ -79,15 +72,18 @@ namespace Services.Ad
                 query = query.Where(q => q.AddressCity.Trim().ToLower() == options.CityName);
             if (options.IsValidZipCode)
                 query = query.Where(q => q.AddressZipCode.Trim().ToLower() == options.ZipCode);
+            #endregion
 
+            #region Cost or Price
             if (options.IsValidPrice)
                 query = query.Where(q => q.ItemCost >= options.ItemCostMin && q.ItemCost <= options.ItemCostMax);
             else if (options.IsValidMinPrice)
                 query = query.Where(q => q.ItemCost >= options.ItemCostMin);
             else if (options.IsValidMinPrice)
                 query = query.Where(q => q.ItemCost <= options.ItemCostMax);
+            #endregion
 
-
+            #region Sorting
             if (options.IsValidSortOption)
             {
                 switch ((SortOptionsBy)options.SortOptionsId)
@@ -108,8 +104,10 @@ namespace Services.Ad
                         break;
                 }
             }
+            #endregion
 
-            if ((SortOptionsBy)options.SortOptionsId == SortOptionsBy.ClosestFirst && options.IsValidLocation)
+            #region Location
+            if (options.IsValidLocation && (SortOptionsBy)options.SortOptionsId == SortOptionsBy.ClosestFirst)
             {
                 if (options.IsValidMileOption)
                 {
@@ -121,30 +119,30 @@ namespace Services.Ad
                 else
                     query = query.OrderBy(o => o.AddressLocation.Distance(options.MapLocation));
             }
-            else if (options.IsValidMileOption && options.IsValidLocation)
+            else if (options.IsValidLocation && options.IsValidMileOption)
             {
                 if ((MileOptionsBy)options.SortOptionsId == MileOptionsBy.Maximum)
                     query = query.OrderBy(o => o.AddressLocation.Distance(options.MapLocation));
                 else
                     query = query.OrderBy(o => o.AddressLocation.Distance(options.MapLocation) < options.Miles);
             }
+            #endregion
 
-            List<Share.Models.Ad.Entities.Ad> a = query.ToList();
-            //paging
-            query = query.Take(options.DefaultPageSize);
+            //var a = query.ToList();
 
-            // select columns:
-            List<AdDto> adDtos =  query.Select(s => new AdDto()
-            {
-                AdId = s.AdId.ToString(),
-                AdTitle = s.AdTitle,
-                UpdatedDateTimeString = s.UpdatedDateTime.TimeAgo(),
-                UserIdOrEmail = s.UserIdOrEmail,
-            }).ToList<AdDto>();
+            #region Pagination
+            //List<AdDto> adDtos = query.Select(s => new AdDto()
+            //{
+            //    AdId = s.AdId.ToString(),
+            //    AdTitle = s.AdTitle,
+            //    UpdatedDateTimeString = s.UpdatedDateTime.TimeAgo(),
+            //    UserIdOrEmail = s.UserIdOrEmail,
+            //}).ToList();
+            PagedResult<AdDto>  pagedResult = query.GetPaged<Share.Models.Ad.Entities.Ad, AdDto>(options.Page, options.PageSize, options.IsValidPageCount,options.PageCount);
+            _adRepository.Context.Dispose();
+            #endregion
 
-            
-
-            return new { records = adDtos, options = options };
+            return new { PagedResult = pagedResult, options = options };
         }
     }
 

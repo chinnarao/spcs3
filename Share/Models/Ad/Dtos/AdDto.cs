@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NetTopologySuite.Geometries;
+using System;
 
 namespace Share.Models.Ad.Dtos
 {
@@ -26,6 +27,7 @@ namespace Share.Models.Ad.Dtos
         public string AddressCountryName { get; set; }
         public string AddressLatitude { get; set; }
         public string AddressLongitude { get; set; }
+        public Point AddressLocation { get; set; }
 
         public double ItemCost { get; set; }   //enter with currency code ex: dollar or rupees
         public string ItemCurrencyCode { get; set; } //https://www.countries-ofthe-world.com/world-currencies.html
@@ -56,6 +58,11 @@ namespace Share.Models.Ad.Dtos
         public string Tag10 { get; set; }
 
         public string UpdatedDateTimeString { get; set; }
-        public GoogleStorageAdFileDto GoogleStorageAdFileDto { get; set; }
+        
+        #region these are all not inputs
+        public bool IsValidLocation { get; set; }
+        public double Longitude { get; set; }
+        public double Latitude { get; set; }
+        #endregion
     }
 }

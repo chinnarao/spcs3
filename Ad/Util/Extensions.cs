@@ -9,8 +9,8 @@ using Share.Constants;
 using Share.Utilities;
 using Services.Common;
 using Share.Models.Common;
-using Share.Enums;
-using GeoAPI.Geometries;
+using Share.Extensions;
+using NetTopologySuite.Geometries;
 
 namespace Ad.Util
 {
@@ -21,44 +21,46 @@ namespace Ad.Util
             return ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
         }
 
-        public static void Defaults(this AdDto model, IConfiguration _configuration)
-        {
-            byte adDefaultDisplayActiveDays;
-            if (byte.TryParse(_configuration["AdDefaultDisplayActiveDays"], out adDefaultDisplayActiveDays))
-                model.AdDisplayDays = adDefaultDisplayActiveDays;
-
-            double Longitude;
-            if (double.TryParse(_configuration["DefaultLongitude"], out Longitude))
-                model.AddressLongitude = "1.0";
-
-            double Lattitude;
-            if (double.TryParse(_configuration["DefaultLattitude"], out Lattitude))
-                model.AddressLatitude = "1.0";
-
-            model.AdId = DateTime.UtcNow.Ticks.ToString();
-            model.AttachedAssetsInCloudStorageId = Guid.NewGuid();
-            model.CreatedDateTime = model.UpdatedDateTime = DateTime.UtcNow;
-            model.IsDeleted = model.IsActivated = model.IsPublished = false;
-        }
-
-        public static void Values(this GoogleStorageAdFileDto fileModel, IConfiguration _configuration, Guid attachedAssetsInCloudStorageGuId)
-        {
-            string googleStorageBucketName = _configuration["AdBucketNameInGoogleCloudStorage"];
-            string htmlFileName = _configuration["AdHtmlTemplateFileNameWithExt"];
-            string GoogleStorageFileExtType = Path.GetExtension(htmlFileName);
-
-            fileModel.CacheExpiryDateTimeForHtmlTemplate = Utility.GetCacheExpireDateTime(_configuration["CacheExpireDays"]);
-            fileModel.HtmlFileTemplateFullPathWithExt = Path.Combine(Directory.GetCurrentDirectory(), htmlFileName);
-            fileModel.GoogleStorageBucketName = googleStorageBucketName;
-            fileModel.CACHE_KEY = Constants.AD_HTML_FILE_TEMPLATE;
-            fileModel.GoogleStorageObjectNameWithExt = string.Format("{0}{1}", attachedAssetsInCloudStorageGuId, GoogleStorageFileExtType);
-            fileModel.ContentType = Utility.GetMimeTypes()[GoogleStorageFileExtType];
-        }
-
-        public static KeyValuePair<bool,string> IsValidSearchInputs(this AdSearchDto options, IJsonDataService _jsonDataService)
+        public static KeyValuePair<bool, string> IsValidCreateAdInputs(this AdDto dto, IConfiguration _configuration, IJsonDataService _jsonDataService)
         {
             List<string> errors = new List<string>();
 
+            dto.AdId = DateTime.UtcNow.Ticks.ToString();
+            dto.AdDisplayDays = _configuration["AdDefaultDisplayActiveDays"].ConvertToByte();
+            dto.AttachedAssetsInCloudStorageId = Guid.NewGuid();
+            dto.CreatedDateTime = dto.UpdatedDateTime = DateTime.UtcNow;
+            dto.IsDeleted = dto.IsActivated = dto.IsPublished = false;
+
+            if (string.IsNullOrWhiteSpace(_configuration["FolderPathForGoogleHtmlTemplate"]))
+                errors.Add("FolderPathForGoogleHtmlTemplate");
+            if (string.IsNullOrWhiteSpace(_configuration["AdBucketNameInGoogleCloudStorage"]))
+                errors.Add("AdBucketNameInGoogleCloudStorage");
+            if (string.IsNullOrWhiteSpace(_configuration["CacheExpireDays"]))
+                errors.Add("CacheExpireDays");
+            
+            if (!_jsonDataService.IsValidCategory(dto.AdCategoryId))
+                errors.Add(nameof(dto.AdCategoryId));
+            if (!_jsonDataService.IsValidCategory(dto.ItemConditionId))
+                errors.Add(nameof(dto.ItemConditionId));
+            //if (!_jsonDataService.IsValidCallingCode(int.Parse(dto.UserPhoneCountryCode)))
+            //    errors.Add(nameof(dto.UserPhoneCountryCode));
+
+            if (dto.AddressLongitude.IsValidLocation(dto.AddressLatitude))
+                dto.IsValidLocation = true;
+            if (dto.IsValidLocation)
+            {
+                dto.Longitude = dto.AddressLongitude.ConvertToDouble();
+                dto.Latitude = dto.AddressLatitude.ConvertToDouble();
+            }
+
+            return new KeyValuePair<bool, string>(errors.Count > 0, string.Join(Path.PathSeparator, errors));
+        }
+
+        public static KeyValuePair<bool,string> IsValidSearchInputs(this AdSearchDto options, IConfiguration _configuration, IJsonDataService _jsonDataService)
+        {
+            List<string> errors = new List<string>();
+
+            #region All General
             if (!string.IsNullOrEmpty(options.SearchText))
             {
                 options.IsValidSearchText = true;
@@ -94,27 +96,31 @@ namespace Ad.Util
                 options.IsValidZipCode = true;
                 options.ZipCode = options.ZipCode.Trim().ToLower();
             }
+            #endregion
 
+            #region Price
             if (!string.IsNullOrWhiteSpace(options.MinPrice) && !string.IsNullOrWhiteSpace(options.MaxPrice))
             {
-                options.ItemCostMin = Utility.ConvertToDoubleFromString(options.MinPrice);
-                options.ItemCostMax = Utility.ConvertToDoubleFromString(options.MaxPrice);
+                options.ItemCostMin = options.MinPrice.ConvertToDoubleOrZero();
+                options.ItemCostMax = options.MaxPrice.ConvertToDoubleOrZero();
                 if (options.ItemCostMin >= 0 && options.ItemCostMax >= 0 && options.ItemCostMin <= options.ItemCostMax)
                     options.IsValidPrice = true;
             }
             else if (!string.IsNullOrWhiteSpace(options.MinPrice) && string.IsNullOrWhiteSpace(options.MaxPrice))
             {
-                options.ItemCostMin = Utility.ConvertToDoubleFromString(options.MinPrice);
+                options.ItemCostMin = options.MinPrice.ConvertToDoubleOrZero();
                 if (options.ItemCostMin > 0)
                     options.IsValidMinPrice = true;
             }
             else if (string.IsNullOrWhiteSpace(options.MinPrice) && !string.IsNullOrWhiteSpace(options.MaxPrice))
             {
-                options.ItemCostMax = Utility.ConvertToDoubleFromString(options.MaxPrice);
+                options.ItemCostMax = options.MaxPrice.ConvertToDoubleOrZero();
                 if (options.ItemCostMax > 0)
                     options.IsValidMaxPrice = true;
             }
+            #endregion
 
+            #region Mile Option
             KeyValueDescription mileOption = _jsonDataService.GetMileOptionById(options.MileOptionsId);
             if (mileOption != null)
             {
@@ -124,22 +130,42 @@ namespace Ad.Util
                 else
                     options.Miles = options.MileOptionsId;
             }
+            #endregion
 
+            #region Location
+            if (options.MapLongitude.IsValidLocation(options.MapLatitude))
+                options.IsValidLocation = true;
+
+            if (options.IsValidLocation)
+            {
+                options.Longitude = options.MapLongitude.ConvertToDouble();
+                options.Latitude = options.MapLatitude.ConvertToDouble();
+                options.MapLocation = new Point(options.Longitude, options.Latitude) { SRID = 4326 };
+            }
+            #endregion
+
+            #region Pagination
+            if (options.PageSize <= 0)
+                options.PageSize = _configuration["DefaultItemsCount"].ConvertToInt();
+            if (options.PageCount.HasValue && options.PageCount.Value > 0)
+            {
+                options.IsValidPageCount = true;
+            }
+            else
+            {
+                options.IsValidPageCount = false;
+                options.PageCount = default(int?);
+            }
+            if (options.Page < 1)
+                options.Page = 1;
+            else if (options.IsValidPageCount && options.PageCount.Value < options.Page)
+                options.Page = options.PageCount.Value;
+            #endregion
+
+            #region Sorting
             options.IsValidSortOption = true;
             options.SortOptionsId = _jsonDataService.GetSortOptionByIdOrDefault(options.SortOptionsId).Key;
-
-            if (!string.IsNullOrWhiteSpace(options.MapLattitude)
-                && !string.IsNullOrWhiteSpace(options.MapLongitude)
-                && Utility.IsValidLatitude(options.MapLattitude)
-                && Utility.IsValidLongitude(options.MapLongitude))
-            {
-                IPoint point = Utility.CreatePoint(longitude: options.MapLongitude, latitude: options.MapLattitude);
-                if (point != null)
-                {
-                    options.IsValidLocation = true;
-                    options.MapLocation = point;
-                }
-            }
+            #endregion
 
             return new KeyValuePair<bool, string>(errors.Count > 0, string.Join(Path.PathSeparator, errors));
         }

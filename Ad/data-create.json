@@ -53,7 +53,7 @@
   "addressLatitude": 1.0,
   "addressLongitude": 1.0,
   "itemCost": 0.0,
-  "ItemConditionId": 0.0,
+  "ItemConditionId": 1,
   "itemCostCurrencyName": "string",
   "itemCurrencyISO_4217": "INR",
   "attachedAssetsInCloudCount": 0,
@@ -63,20 +63,11 @@
   "updatedDateTime": "2018-10-30T23:37:01.819Z",
   "isDeleted": false,
   "deletedDateTime": "2018-10-30T23:37:01.819Z",
-  "isPublished": false,
+  "isPublished": true,
   "lastDraftOrBeforePublishedDateTime": "2018-10-30T23:37:01.819Z",
   "lastPublishedDateTime": "2018-10-30T23:37:01.819Z",
   "isActive": true,
   "lastActiveDateTime": "2018-10-30T23:37:01.819Z",
   "lastInActiveDateTime": "2018-10-30T23:37:01.819Z",
-  "updatedDateTimeString": "string",
-  "googleStorageAdFileDto": {
-    "cacheExpiryDateTimeForHtmlTemplate": "2018-10-30T23:37:01.819Z",
-    "googleStorageObjectNameWithExt": "string",
-    "googleStorageBucketName": "string",
-    "adAnonymousDataObjectForHtmlTemplate": {},
-    "contentType": "string",
-    "cachE_KEY": "string",
-    "htmlFileTemplateFullPathWithExt": "string"
-  }
+  "updatedDateTimeString": "string"
 }

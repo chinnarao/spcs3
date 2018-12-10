@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using GeoAPI.Geometries;
+﻿using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 
 namespace Share.Models.Ad.Dtos
 {
@@ -27,9 +24,14 @@ namespace Share.Models.Ad.Dtos
 
         public string MapAddress { get; set; } 
         public string MapLongitude { get; set; }
-        public string MapLattitude { get; set; }
+        public string MapLatitude { get; set; }
+
+        public int Page { get; set; }
+        public int PageSize { get; set; }
+        public int? PageCount { get; set; }
+        public bool IsValidPageCount { get; set; }
         #endregion
-        
+
         #region these are all not inputs only inside custom properties
         public bool IsValidCategory { get; set; }
         public bool IsValidCondition { get; set; }
@@ -45,41 +47,11 @@ namespace Share.Models.Ad.Dtos
         public bool IsValidSearchText { get; set; }
         public double ItemCostMin { get; set; }
         public double ItemCostMax { get; set; }
-        //public string SortOptionsFromJsonFile { get; set; }
-        //public string MileOptionsNameFromJsonFile { get; set; }
-        public IGeometry MapLocation { get; set; }
+        public Point MapLocation { get; set; }
         public bool IsValidLocation { get; set; }
         public double Miles { get; set; }
+        public double Longitude { get; set; }
+        public double Latitude { get; set; }
         #endregion
-
-        public int PageNumber { get; set; }
-        public int DefaultPageSize { get; set; } = 10;//how many records should display in the screen
-        public int SearchResultCount { get; private set; }
-
-        public string StateWithComma { get; set; }
-
-        //public Expression<Func<Models.Ad.Entities.Ad, bool>> CreatePredicate()
-        //{
-        //    var predicate = PredicateBuilder.True<Models.Ad.Entities.Ad>();
-        //    if (IsValidCategoryId)
-        //        predicate = predicate.And(exp => exp.AdCategoryId == CategoryId);
-        //    if (IsValidConditionId)
-        //        predicate = predicate.And(exp => exp.ItemConditionId == ConditionId);
-        //    if (IsValidCountryCode)
-        //        predicate = predicate.And(exp => exp.AddressCountryCode == CountryCode);
-        //    if (IsValidCurrencyCode)
-        //        predicate = predicate.And(exp => exp.ItemCurrencyCode == CurrencyCode);
-        //    if (IsValidCityName)
-        //        predicate = predicate.And(exp => exp.AddressCity.ToLower() == CityName);
-        //    if (IsValidZipCode)
-        //        predicate = predicate.And(exp => exp.AddressZipCode.ToLower() == ZipCode);
-        //    if (IsValidMinPrice)
-        //        predicate = predicate.And(exp => exp.ItemCost >= MinPrice);
-        //    if (IsValidMaxPrice)
-        //        predicate = predicate.And(exp => exp.ItemCost <= MaxPrice);
-        //    if (IsValidSearchText)
-        //        predicate = predicate.And(exp => exp.AdContent.ToLower() == SearchText);
-        //    return predicate;
-        //}
     }
 }
