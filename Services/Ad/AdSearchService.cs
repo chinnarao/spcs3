@@ -13,6 +13,9 @@ using Services.Common;
 using Share.Enums;
 using Share.Models.Common;
 using System.Globalization;
+using LinqKit;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace Services.Ad
 {
@@ -43,25 +46,25 @@ namespace Services.Ad
         //https://docs.microsoft.com/en-us/sql/relational-databases/search/query-with-full-text-search?view=sql-server-2017
         //https://github.com/uber-asido/backend/blob/e32bf1ddabe500002d835228993707503449e06c/src/Uber.Module.Search.EFCore/Store/SearchItemStore.cs
         //https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql/blob/42c335ceac6d93d1c0487ef45fc992810c07fd9d/upstream/EFCore.Upstream.FunctionalTests/Query/DbFunctionsMySqlTest.cs
-        public dynamic SearchAds(AdSearchDto options)
+        public dynamic SearchAds1(AdSearchDto options)
         {
             IQueryable<Share.Models.Ad.Entities.Ad> query = _adRepository.Entities.AsNoTracking().TagWith(nameof(SearchAds)).Where(w => w.IsPublished && w.IsActivated && !w.IsDeleted);
 
             #region FreeText
-            int language = _configuration["SqlServerFullTextIndexLanguage"].ConvertToInt();
-            int lcid = CultureInfo.CurrentCulture.LCID; // 1033 is coming
+            //int language = _configuration["SqlServerFullTextIndexLanguage"].ConvertToInt();
+            //int lcid = CultureInfo.CurrentCulture.LCID; // 1033 is coming
             // implemented and chosen FreeText from 4 options: 1.FreeText 2.Contains 3.ContainsTable 4.FreeTextTable
             // figure out later: SqlServerDbFunctionsExtensions
             if (options.IsValidSearchText)
             {
-                query = query.Where(ft => EF.Functions.FreeText(ft.AdContent, options.SearchText));
-                query = query.Where(ft => EF.Functions.FreeText(ft.AdTitle, options.SearchText));
+                query = query.Where(ft => EF.Functions.FreeText(ft.AdContent, options.SearchText) || EF.Functions.FreeText(ft.AdTitle, options.SearchText));
+                //query = query.Where(ft => EF.Functions.FreeText(ft.AdTitle, options.SearchText));
             }
             #endregion
 
             #region General
             if (options.IsValidCategory)
-                query = query.Where(q => q.AdCategoryId == options.CategoryId);
+                query = query.Where(q => q.AdCategoryId == options.CategoryId );
             if (options.IsValidCondition)
                 query = query.Where(q => q.ItemConditionId == options.ConditionId);
             if (options.IsValidCountryCode)
@@ -128,17 +131,83 @@ namespace Services.Ad
             }
             #endregion
 
-            //var a = query.ToList();
+            #region Pagination
+            PagedResult<AdDto>  pagedResult = query.GetPaged<Share.Models.Ad.Entities.Ad, AdDto>(options.Page, options.PageSize, options.IsValidPageCount,options.PageCount);
+            _adRepository.Context.Dispose();
+            #endregion
+
+            return new { PagedResult = pagedResult, options = options };
+        }
+
+        public dynamic SearchAds(AdSearchDto options)
+        {
+            IQueryable<Share.Models.Ad.Entities.Ad> query = _adRepository.Entities.AsNoTracking().TagWith(nameof(SearchAds)).Where(w => w.IsPublished && w.IsActivated && !w.IsDeleted);
+
+            #region FreeText
+            int language = _configuration["SqlServerFullTextIndexLanguage"].ConvertToInt();
+            int lcid = CultureInfo.CurrentCulture.LCID; // 1033 is coming
+            // implemented and chosen FreeText from 4 options: 1.FreeText 2.Contains 3.ContainsTable 4.FreeTextTable
+            // figure out later: SqlServerDbFunctionsExtensions
+            if (options.IsValidSearchText)
+            {
+                query = query.Where(ft => EF.Functions.FreeText(ft.AdTitle, options.SearchText) || EF.Functions.FreeText(ft.AdContent, options.SearchText));
+            }
+            #endregion
+
+            #region General
+            if (options.IsValidCategory)
+                query = query.Where(q => q.AdCategoryId == options.CategoryId);
+            if (options.IsValidCondition)
+                query = query.Where(q => q.ItemConditionId == options.ConditionId);
+            if (options.IsValidCountryCode)
+                query = query.Where(q => q.AddressCountryCode.Trim().ToUpper() == options.CountryCode);
+            //if (options.IsValidCurrencyCode)
+            //    query = query.Where(q => q.ItemCurrencyCode.Trim().ToUpper() == options.CurrencyCode);
+            //if (options.IsValidCityName)
+            //    query = query.Where(q => q.AddressCity.Trim().ToLower() == options.CityName);
+            //if (options.IsValidZipCode)
+            //    query = query.Where(q => q.AddressZipCode.Trim().ToLower() == options.ZipCode);
+            #endregion
+
+            #region Cost or Price
+            if (options.IsValidPrice)
+                query = query.Where(q => q.ItemCost >= options.ItemCostMin && q.ItemCost <= options.ItemCostMax);
+            else if (options.IsValidMinPrice)
+                query = query.Where(q => q.ItemCost >= options.ItemCostMin);
+            else if (options.IsValidMinPrice)
+                query = query.Where(q => q.ItemCost <= options.ItemCostMax);
+            #endregion
+
+            #region Sorting
+            if (options.IsValidSortOption)
+            {
+                switch ((SortOptionsBy)options.SortOptionsId)
+                {
+                    case SortOptionsBy.ClosestFirst:
+                        if (options.IsValidLocation && options.IsValidMileOption)
+                            query = query.OrderBy(o => o.AddressLocation.Distance(options.MapLocation) < options.Miles);
+                        else if (options.IsValidLocation)
+                            query = query.OrderBy(o => o.AddressLocation.Distance(options.MapLocation));
+                        break;
+                    case SortOptionsBy.NewestFirst:
+                        query = query.OrderByDescending(o => o.UpdatedDateTime);
+                        break;
+                    case SortOptionsBy.PriceHighToLow:
+                        query = query.OrderByDescending(o => o.ItemCost);
+                        break;
+                    case SortOptionsBy.PriceLowToHigh:
+                        query = query.OrderBy(o => o.ItemCost);
+                        break;
+                    default:
+                        query = query.OrderByDescending(o => o.UpdatedDateTime);
+                        break;
+                }
+            }
+            #endregion
 
             #region Pagination
-            //List<AdDto> adDtos = query.Select(s => new AdDto()
-            //{
-            //    AdId = s.AdId.ToString(),
-            //    AdTitle = s.AdTitle,
-            //    UpdatedDateTimeString = s.UpdatedDateTime.TimeAgo(),
-            //    UserIdOrEmail = s.UserIdOrEmail,
-            //}).ToList();
-            PagedResult<AdDto>  pagedResult = query.GetPaged<Share.Models.Ad.Entities.Ad, AdDto>(options.Page, options.PageSize, options.IsValidPageCount,options.PageCount);
+            
+            PagedResult<AdDto> pagedResult = query.GetPaged<Share.Models.Ad.Entities.Ad, AdDto>(options.Page, options.PageSize, options.IsValidPageCount, options.PageCount);
             _adRepository.Context.Dispose();
             #endregion
 

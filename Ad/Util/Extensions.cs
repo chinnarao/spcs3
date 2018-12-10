@@ -60,6 +60,9 @@ namespace Ad.Util
             List<string> errors = new List<string>();
 
             #region All General
+            if (string.IsNullOrWhiteSpace(_configuration["SqlServerFullTextIndexLanguage"]))
+                errors.Add("SqlServerFullTextIndexLanguage");
+
             if (!string.IsNullOrEmpty(options.SearchText))
             {
                 options.IsValidSearchText = true;
