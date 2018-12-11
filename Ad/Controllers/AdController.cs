@@ -22,8 +22,8 @@ namespace Ad.Controllers
         private readonly IJsonDataService _jsonDataService;
         private readonly IAdCreateService _adCreateService;
 
-        public AdController(IConfiguration configuration, ILogger<AdController> logger,  IJsonDataService jsonDataService, 
-            IAdService adService, IAdSearchService adSearchService, IAdCreateService adCreateService)
+        public AdController(IConfiguration configuration, ILogger<AdController> logger, IAdService adService, IJsonDataService jsonDataService, 
+             IAdSearchService adSearchService, IAdCreateService adCreateService)
         {
             _configuration = configuration;
             _logger = logger;

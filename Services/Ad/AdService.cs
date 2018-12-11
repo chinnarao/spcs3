@@ -68,7 +68,7 @@ namespace Services.Ad
 
         public List<AdDto> GetAllAds()
         {
-            var ads = _adRepository.Entities.AsNoTracking();
+            var ads = _adRepository.All();
             List<AdDto> adDtos = _mapper.Map<List<AdDto>>(ads);
             return adDtos;
         }
