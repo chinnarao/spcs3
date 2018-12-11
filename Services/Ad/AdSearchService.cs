@@ -1,21 +1,13 @@
-﻿using System;
-using AutoMapper;
-using Share.Models.Ad.Dtos;
+﻿using Share.Models.Ad.Dtos;
 using DbContexts.Ad;
 using Repository;
-using Microsoft.Extensions.Logging;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Share.Extensions;
-using Services.Commmon;
 using Microsoft.Extensions.Configuration;
-using Services.Common;
 using Share.Enums;
 using Share.Models.Common;
 using System.Globalization;
-using LinqKit;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 
 namespace Services.Ad
 {

@@ -1,41 +1,49 @@
 //https://github.com/jamiewest/Repository
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Repository
 {
-    public interface IRepository<TEntity, TContext>
+    public interface IRepository<T, TContext>
     {
         TContext Context { get; }
 
-        IQueryable<TEntity> Entities { get; }
+        IQueryable<T> Entities { get; }
 
         int SaveChanges();
 
         Task SaveChangesAsync(CancellationToken cancellationToken);
 
-        RepositoryResult Create(TEntity entity);
+        RepositoryResult Create(T entity);
 
-        Task<RepositoryResult> CreateAsync(TEntity entity, CancellationToken cancellationToken = default(CancellationToken));
+        Task<RepositoryResult> CreateAsync(T entity, CancellationToken cancellationToken = default(CancellationToken));
 
-        RepositoryResult Update(TEntity entity);
+        RepositoryResult Update(T entity);
 
-        Task<RepositoryResult> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default(CancellationToken));
+        Task<RepositoryResult> UpdateAsync(T entity, CancellationToken cancellationToken = default(CancellationToken));
 
-        RepositoryResult Delete(TEntity entity);
+        RepositoryResult Delete(T entity);
 
-        Task<RepositoryResult> DeleteAsync(TEntity entity, CancellationToken cancellationToken = default(CancellationToken));
+        Task<RepositoryResult> DeleteAsync(T entity, CancellationToken cancellationToken = default(CancellationToken));
 
-        TEntity FindByKey(params object[] keyValues);
+        T FindByKey(params object[] keyValues);
 
-        Task<TEntity> FindByKeyAsync(params object[] keyValues);
+        Task<T> FindByKeyAsync(params object[] keyValues);
 
-        Task<TEntity> FindByKeyAsync(object[] keyValues, CancellationToken cancellationToken = default(CancellationToken));
+        Task<T> FindByKeyAsync(object[] keyValues, CancellationToken cancellationToken = default(CancellationToken));
 
-        IEnumerable<TEntity> All();
+        IEnumerable<T> All();
 
-        Task<IEnumerable<TEntity>> AllAsync(CancellationToken cancellationToken = default(CancellationToken));
+        Task<IEnumerable<T>> AllAsync(CancellationToken cancellationToken = default(CancellationToken));
+
+        IEnumerable<T> By(Expression<Func<T, bool>> predicate);
+
+        IEnumerable<T> By(Expression<Func<T, bool>> predicate, params string[] navigationProperties);
+
+        int ExecuteSqlCommand(string rawSqlString, params object[] paramaters);
     }
 }

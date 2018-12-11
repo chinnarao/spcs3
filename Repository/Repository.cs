@@ -1,6 +1,10 @@
 ﻿//https://github.com/jamiewest/Repository
+//https://github.com/tichaczech/fluff/blob/48482dc38efd04040f6798c318563a6e8ba3d244/Data/src/Repositories/BaseRepository.cs
+//https://github.com/davidegironi/dgdatamodel/blob/66c08f2eb129abd4d84c496502f9338f0c85ec4c/DGDataModel/IGenericDataRepository.cs
+//https://github.com/radixwb/RxEntityFrameworkCore/blob/92f1e3e8341135174eb4d747fba5b4539b985576/Rx.EntityFrameworkCore/Repository/Repository.cs
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
@@ -9,12 +13,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Repository
 {
-    public class Repository<TEntity> : Repository<TEntity, DbContext> where TEntity : class
+    public class Repository<T> : Repository<T, DbContext> where T : class
     {
         public Repository(DbContext context) : base(context) { }
     }
     
-    public class Repository<TEntity, TContext> : IRepository<TEntity, TContext> where TEntity : class where TContext : DbContext
+    public class Repository<T, TContext> : IRepository<T, TContext> where T : class where TContext : DbContext
     {
         public Repository(TContext context)
         {
@@ -23,7 +27,7 @@ namespace Repository
 
         private bool _disposed;
         public TContext Context { get; }
-        public virtual IQueryable<TEntity> Entities => Context.Set<TEntity>();
+        public virtual IQueryable<T> Entities => Context.Set<T>();
 
         public bool AutoSaveChanges { get; set; } = true;
 
@@ -45,7 +49,7 @@ namespace Repository
             }
         }
 
-        public virtual RepositoryResult Create(TEntity entity)
+        public virtual RepositoryResult Create(T entity)
         {
             ThrowIfDisposed();
             if (entity == null)
@@ -58,7 +62,7 @@ namespace Repository
             return RepositoryResult.Success;
         }
 
-        public virtual async Task<RepositoryResult> CreateAsync(TEntity entity, CancellationToken cancellationToken = default(CancellationToken))
+        public virtual async Task<RepositoryResult> CreateAsync(T entity, CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -72,7 +76,7 @@ namespace Repository
             return RepositoryResult.Success;
         }
 
-        public virtual RepositoryResult Update(TEntity entity)
+        public virtual RepositoryResult Update(T entity)
         {
             ThrowIfDisposed();
             if (entity == null)
@@ -87,7 +91,7 @@ namespace Repository
             return RepositoryResult.Success;
         }
 
-        public virtual async Task<RepositoryResult> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default(CancellationToken))
+        public virtual async Task<RepositoryResult> UpdateAsync(T entity, CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -111,7 +115,7 @@ namespace Repository
             return RepositoryResult.Success;
         }
 
-        public virtual RepositoryResult Delete(TEntity entity)
+        public virtual RepositoryResult Delete(T entity)
         {
             ThrowIfDisposed();
             if (entity == null)
@@ -125,7 +129,7 @@ namespace Repository
             return RepositoryResult.Success;
         }
 
-        public virtual async Task<RepositoryResult> DeleteAsync(TEntity entity, CancellationToken cancellationToken = default(CancellationToken))
+        public virtual async Task<RepositoryResult> DeleteAsync(T entity, CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -147,38 +151,60 @@ namespace Repository
             return RepositoryResult.Success;
         }
 
-        public virtual TEntity FindByKey(params object[] keyValues)
+        public virtual T FindByKey(params object[] keyValues)
         {
             ThrowIfDisposed();
-            return Context.Set<TEntity>().Find(keyValues);
+            return Context.Set<T>().Find(keyValues);
         }
 
-        public virtual async Task<TEntity> FindByKeyAsync(params object[] keyValues)
+        public virtual async Task<T> FindByKeyAsync(params object[] keyValues)
         {
             ThrowIfDisposed();
-            return await Context.Set<TEntity>().FindAsync(keyValues);
+            return await Context.Set<T>().FindAsync(keyValues);
         }
 
-        public virtual async Task<TEntity> FindByKeyAsync(object[] keyValues, CancellationToken cancellationToken = default(CancellationToken))
+        public virtual async Task<T> FindByKeyAsync(object[] keyValues, CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
-            return await Context.Set<TEntity>().FindAsync(keyValues, cancellationToken);
+            return await Context.Set<T>().FindAsync(keyValues, cancellationToken);
         }
  
-        public virtual IEnumerable<TEntity> All()
+        public virtual IEnumerable<T> All()
         {
             ThrowIfDisposed();
             return Entities.AsNoTracking().ToList();
         }
 
-        public virtual async Task<IEnumerable<TEntity>> AllAsync(CancellationToken cancellationToken = default(CancellationToken))
+        public virtual IEnumerable<T> By(Expression<Func<T, bool>> predicate)
+        {
+            ThrowIfDisposed();
+            return Context.Set<T>().AsNoTracking().Where<T>(predicate).ToList<T>();
+        }
+
+        public virtual IEnumerable<T> By(Expression<Func<T, bool>> predicate, params string[] navigationProperties)
+        {
+            ThrowIfDisposed();
+            var query = Context.Set<T>().AsNoTracking<T>().AsQueryable<T>();
+            foreach (string navigationProperty in navigationProperties)
+                query = query.Include(navigationProperty);
+            return query.Where<T>(predicate).ToList<T>();
+        }
+
+        public virtual int ExecuteSqlCommand(string rawSqlString, params object[] paramaters)
+        {
+            ThrowIfDisposed();
+            int i = Context.Database.ExecuteSqlCommand(rawSqlString, paramaters);
+            return i;
+        }
+
+        public virtual async Task<IEnumerable<T>> AllAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             ThrowIfDisposed();
             return await Entities.AsNoTracking().ToListAsync(cancellationToken);
         }
 
-        internal IQueryable<TEntity> AggregateProperties(params Expression<Func<TEntity, object>>[] includeProperties)
+        internal IQueryable<T> AggregateProperties(params Expression<Func<T, object>>[] includeProperties)
         {
             return includeProperties.Aggregate(Entities.AsNoTracking(), (current, includeProperty) => current.Include(includeProperty));
         }
